@@ -1,0 +1,45 @@
+.fight{
+    margin-top: 70px;
+}
+.fight-table td{
+    padding: 10px 30px;
+    border-bottom: 2px solid #ccc;
+}
+.fight h3{
+    text-align: center;
+}
+.fight-title-month{
+    padding: 10px;
+}
+.fight-title, .fight-title-month{
+    font-size: 16px;
+    font-weight: bold;
+}
+.fight-table td button{
+    border: none;
+    background-color: white;
+    padding: 10px;
+
+}
+.fight-table td button:focus{
+    outline: none;
+}
+.fight-table td button:hover{
+    background-color:  #b3d9ff;
+    border-radius: 10px;
+}
+.fight-price{
+    font-size: 24px;
+    font-weight: 700;
+}
+.fight-title{
+    width: 100%;
+}
+@media (max-width:880px){
+    .fight-table td {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+   
+
+}

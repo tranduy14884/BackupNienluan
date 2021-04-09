@@ -1,0 +1,48 @@
+.hotel-search>.container{
+    border-radius: 5px ;
+    box-shadow:  10px 15px 15px #cccccc;
+    position: relative;
+    margin-top: -40px;
+    background-color: white;
+}
+.hotel-search>.container>ul{
+    list-style-type: none;
+    border-bottom: 1px solid #cccccc;
+}
+.hotel-search>.container>ul>li{
+    margin: 10px 10px;
+}
+
+.hotel-search>.container>.row>li>a{
+    text-decoration: none;
+    color: black;
+    font-size: 22px;
+}
+.hotel-search>.container>.row>li>a:hover{
+    color: #ff751a;
+}
+.search>.row>button{
+    background-color: #ff751a;
+    color: white;
+    margin: auto;
+    height: 40px;
+    width: 240px;
+    border-radius: 10px;
+    border: none;
+}
+
+.hotel-search .search .row{
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+.hotel-search>.container>.row>.active>a{
+    color: #ff751a;
+}
+#datepicker{
+    width:180px; 
+    margin: 0 20px 20px 0px;
+}
+#datepicker > span:hover{
+    cursor: pointer;
+}
+

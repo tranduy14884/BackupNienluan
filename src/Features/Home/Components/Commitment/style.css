@@ -1,0 +1,21 @@
+.commitment {
+    padding-top: 10px;
+}
+.commitment h3{
+    text-align: center;
+    margin: 20px 0;
+}
+.commitment-group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.commmitment-item{
+    display: flex;
+    align-items: center;
+    width: 30%;
+    margin-bottom: 20px;
+}
+.commmitment-icon img{
+    margin-right: 10px;
+}

@@ -1,0 +1,8 @@
+.title-detail a{
+    color: black;
+}
+.title-detail>a{
+    margin-right: 10px;
+    color: #999999;
+}
+

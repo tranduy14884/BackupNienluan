@@ -1,0 +1,20 @@
+.vntrip-app{
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+.vntrip-app>.container>.row{
+    align-items: center;
+}
+.vntrip-content{
+    font-size: 14px;
+}
+.vntrip-content span{
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+.vntrip-qr{
+    text-align: center;
+    border-left: 1px solid #ccc;
+}

@@ -1,0 +1,54 @@
+.app-info{
+    background-image: url('https://statics.vntrip.vn/images/appBox-bg.jpg');
+    height: 450px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    padding-top: 2em;
+    
+}
+.app-info>.container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+   
+}
+.app-content{
+    display: flex;
+    flex-direction: column;
+    width: 525px;
+    margin-left: 125px;
+}
+.app-content h1{
+    font-weight: 700;
+}
+.app-img{
+    margin-top: 20px;
+}
+.app-img img:first-child{
+    margin-right: 20px;
+}
+@media (max-width:800px)
+{
+    .app-info>.container{
+        flex-direction: column-reverse;
+    }
+    .app-info>.container>div>img{
+        width: 145px;
+    }
+    .app-content{
+        max-width: 700px;
+    }
+    .app-content h1{
+        font-weight: 700;
+        font-size: 20px;
+    }
+    .app-img img:first-child{
+        margin-left: 10%;
+    }
+    .app-img img{
+        width: 140px;
+        margin-bottom: 20px;
+    }
+}

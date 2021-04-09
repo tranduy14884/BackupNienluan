@@ -1,0 +1,13 @@
+.banner-hotel>.container-fluid{
+    background-image: url('https://statics.vntrip.vn/uploads/banner/20210329_499680_widescreen_1920x400.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+    width: 100%;
+    height: 400px;
+}
+@media (max-width: 75em) {
+    .banner-hotel>.container-fluid{
+        height: 250px;
+    }
+}

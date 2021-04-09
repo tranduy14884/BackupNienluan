@@ -1,0 +1,179 @@
+/******* mainbar *******/
+
+.mainbar-background{
+    background-image: url('https://statics.vntrip.vn/images/homeBannerV2.jpg');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 45%;
+    background-size: cover;
+    z-index: 0;
+  }
+  .mainbar-text{
+    text-align: center;
+    padding-top: 40px;
+  }
+  .mainbar-text p:first-child, .mainbar-text p:last-child{
+    color: white;
+    margin-bottom: 0;
+  }
+  .mainbar-text p:first-child{
+    font-size: 35px;
+    font-weight: 700;
+  }
+  .mainbar-text p:last-child{
+    font-weight: 400;
+    font-size: 20px;
+  }
+  .mainbar-search{
+    position: relative;
+    margin-top: -170px;
+}
+.tab-seach{
+    position: relative;
+    display: flex;
+    max-width: 650px;
+    margin: auto;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 7px 7px 7px #cccccc;
+}
+.tab-search-content{
+    padding-top: 30px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    box-shadow: 7px 7px 7px #cccccc;
+    display: none;
+    background-color: white;
+   
+    margin-top: -10px;
+    
+}
+.tab-search-content.active{
+    display: block;
+}
+
+.tab-seach li{
+    list-style-type: none;
+    flex: 1 1;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.search-item-active{
+    border-bottom: 5px solid #ff8917;
+    border-radius: 10px;
+    
+}
+.search-item button{
+    background-color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    font-size: 18px;
+    font-weight: 500; 
+}
+.search-item button:focus{
+    outline: none;
+}
+.search-item{
+    padding-top: 15px;
+    flex-direction: column;
+   
+}
+.search-item>i{
+    font-size: 50px;
+    color: #ff8917;
+    text-align: center;
+}
+
+.search-content{
+    display: flex;
+    align-items: center;
+    justify-content:  space-around;
+}
+
+.search-content button{
+    background-color: #ff8917;
+    width: 50%;
+    margin: auto;
+    font-size: 20px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+.search-content button:focus{
+    outline: none;
+}
+.search-content-item{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    padding: 10px;
+    align-items: center;
+}
+.search-content-item h5{
+    font-size: 16px;
+}
+.search-content-item>div>i{
+    font-size: 40px;
+    opacity: 0.5;
+    margin-right: 10px;
+    text-align: center;
+    justify-items: center;
+}
+.search-content-item input{
+    border: none;
+}
+.search-content-item input:focus{
+    outline: none;
+}
+.search-content-item-day{
+    display: flex;
+
+}
+
+.search-content-item-2{
+    width: 45%;
+}
+.search-content-item-3{
+    width: 50%;
+    align-items: center;
+}
+/* datepicker */
+/* #datepicker{
+    width: 90%; 
+    margin: 0 20px 0px 0px;
+    background-color: white;
+}
+#datepicker > span:hover{
+    cursor: pointer;
+} */
+@media (max-width:820px){
+    .search-item>i {
+        font-size: 40px;
+    }
+    .search-item button{
+        font-size: 14px;
+    }
+    .search-content {
+        flex-direction: column;
+    }
+    .search-content-item{
+        width: 80%;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+}
+@media (max-width:1000px)
+{
+    .search-content-item{
+        font-size: 13px;
+    }
+}

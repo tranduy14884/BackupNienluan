@@ -1,0 +1,62 @@
+.membership>.container>.row{
+    background-color:  #fafafa;
+    padding: 50px;
+    align-items: center;
+}
+.membership-img{
+    display: flex;
+    justify-content: center;
+}
+
+.membership-content h2{
+    font-size: 26px;
+    font-weight: 600;
+}
+h2 + p {
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+.membership-content .content-btn button{
+    background-color:  #ff8917;
+    padding: 0 20px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+}
+.membership-content .content-btn{
+    display: flex;
+}
+.membership-content .content-btn button:focus{
+    outline: none;
+}
+.content-btn-info a{
+    color: #ff8917;
+    text-decoration: none;
+}
+.content-btn-info{
+    margin-left: 10px;
+}
+.content-btn-info p
+{
+    margin-bottom: 0;
+}
+@media (max-width:990px)
+{
+
+    .membership-content .content-btn{
+        flex-direction: column;
+    }
+    .membership-content .content-btn button{
+        padding: 10px 0;
+    }
+}
+@media (max-width:960px)
+{
+    .commitment-group{
+        flex-direction: column;
+    }
+    .commmitment-item {
+        width: 100%;
+    }
+}

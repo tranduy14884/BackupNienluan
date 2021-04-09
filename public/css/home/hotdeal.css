@@ -1,0 +1,71 @@
+.hot-deal{
+    background-color:  #f2f2f2;
+    padding-bottom: 20px;
+    padding-top: 50px;
+    margin-top: 70px;
+}
+.hot-deal h3{
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+.list-deal{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.deal-item-img img{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: 1s;
+    
+}
+.deal-item-img{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+}
+.deal-item-img:hover img{
+    transform: scale(1.1);
+    transition: 1s;
+}
+.list-deal-item{
+    width: 31%; 
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px #ccc;
+    margin-bottom: 20px;
+}
+.list-deal-item a{
+    text-decoration: none;
+}
+.deal-item-content{
+    margin: 20px;
+    color: black;
+}
+.deal-item-content p{
+    margin-bottom: 0;
+}
+.deal-item-content .content-hotel{
+    color:  #ffaa00;
+    margin-left: 40px;
+}
+.deal-item-content .content-endow{
+    margin-left: 28px;
+    color:  #40ff00;
+}
+.deal-item-content  .content-price{
+    color: #ff8533;
+    font-size: 35px;
+    font-weight: 650;
+}
+@media (max-width:1010px){
+    .list-deal-item {
+        width: 47%;
+    }
+}
+@media (max-width:770px){
+    .list-deal-item {
+        width: 100%;
+    }
+}

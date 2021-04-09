@@ -1,0 +1,107 @@
+.hotel-detail-body{
+    margin-top: 20px;
+}
+.room-item{
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px 5px #e6e6e6;
+    margin-bottom: 20px;
+}
+.room-item-header{
+    border-bottom: 1px solid  #bfbfbf;
+}
+.room-item-header .img img{
+    width: 100px;
+    height: 100px;
+    border-top-left-radius: 5px;
+}
+.room-item-header .content{
+    margin-left: 10px;
+    justify-content: center;
+}
+.room-item-header .content h3{
+    font-size: 24px;
+    color: #ff8917;
+}
+.content-info p{
+    margin-right: 20px;
+    font-size: 14px;
+    color: #595959;
+}
+.content-info .icon,.room-item-body .content .icon{
+    margin-right: 10px;
+}
+
+.room-item-body .content{
+    width: 60%;
+    align-items: center;
+    justify-content :space-around;
+    font-size: 18px;
+    color: #389e0d;
+}
+
+.room-item-body .price{
+    text-align: right;
+    margin-top: 10px;
+}
+.room-item-body .price .old-price{
+    color: #999999;
+    text-decoration: line-through;
+}
+.room-item-body .price p{
+    margin-bottom: 5px;
+}
+.room-item-body .price .discount-price{
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+    padding: 0 5px;
+    font-size: 14px;
+    margin-left: 5px;
+}
+.room-item-body .price p:nth-child(2){
+    color: #ff8917;
+    font-size: 24px;
+    font-weight: 600;
+}
+.room-item-body .price p:last-child{
+    font-size: 14px;
+    color: #389e0d;
+    margin-bottom: 10px;
+}
+.room-item-body div:last-child{
+    
+    justify-content: center;
+    margin: auto;
+}
+.room-item-body>div>button{
+    background-color: #ff8917;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    padding: 10px 40px;
+    text-align: center;
+}
+.room-item-body>div>button:focus{
+    outline: none;
+}
+@media (max-width:978px) {
+    .room-item-body{
+        flex-direction: column !important;
+    }
+    .room-item-body .content{
+        width: 100%;
+        margin-top: 20px;
+    }
+    .room-item-body .price{
+        margin-right: 20px;
+    }
+    .room-item-body div:last-child{
+        flex-direction: row !important;
+        justify-content: flex-end;
+        margin: 0 10px 10px 0;
+    }
+    .room-item-header .img img{
+        height: 100%;
+        width: 100%;
+    }
+}
