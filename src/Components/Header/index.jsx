@@ -47,12 +47,12 @@ function Header(props) {
           <div className="flex-container">
             <ul className="header-2">
               <li className="tab-item tab-active">
-                <a href="../home/index.html">
+                <Link to="/">
                   <span>
                     <i className="fab fa-asymmetrik" />
                   </span>
                   Săn giá rẻ
-                </a>
+                </Link>
               </li>
               <li className="tab-item">
                 <Link to="/hotel">

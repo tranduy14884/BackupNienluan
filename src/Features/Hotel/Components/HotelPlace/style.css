@@ -1,5 +1,10 @@
 .hotel-place{
     padding-bottom: 50px;
+    margin-top: 20px;
+}
+.hotel-place h2{
+    text-align: center;
+    margin-bottom: 20px;
 }
 /* .row .hotel-place-col h3{
     color: #fff;

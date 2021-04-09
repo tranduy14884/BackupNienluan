@@ -1,7 +1,12 @@
-import React from "react";
+import React , {useState} from "react";
 import './style.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 function HotelSearch(props) {
+  const [startDate, setStartDate] = useState(new Date());
   return (
+    
     <div>
       <div className="hotel-search">
         <div className="container">
@@ -37,17 +42,8 @@ function HotelSearch(props) {
               </div>
               <div className="col-sm-12 col-md-3">
                 <p>Ngày nhận phòng</p>
-                <div
-                  id="datepicker"
-                  className="input-group date"
-                  data-date-format="dd-mm-yyyy"
-                >
-                  {" "}
-                  <input className="form-control" readOnly type="text" />{" "}
-                  <span className="input-group-addon">
-                    <i className="glyphicon glyphicon-calendar" />
-                  </span>
-                </div>
+               
+                <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
               </div>
               <div className="col-sm-12 col-md-3">
                 <p>Số ngày thuê phòng</p>
