@@ -18,9 +18,8 @@ function RenderHotDealItems(props) {
         <div className="container">
           <h3>HOT DEAL</h3>
           <div className="list-deal">
-          
-              {hotDealItems.map((hotDealItem) => (
-                    <div className="list-deal-item">
+            {hotDealItems.map((hotDealItem) => (
+              <div className="list-deal-item">
                 <a className="deal-item" href>
                   <div className="deal-item-img">
                     <img
@@ -44,9 +43,8 @@ function RenderHotDealItems(props) {
                     </p>
                   </div>
                 </a>
-                </div>
-              ))}
-            
+              </div>
+            ))}
           </div>
         </div>
       </div>
