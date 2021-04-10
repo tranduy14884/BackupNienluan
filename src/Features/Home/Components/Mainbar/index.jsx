@@ -1,9 +1,10 @@
-import React from "react";
+import React , {useState} from "react";
 import PropTypes from "prop-types";
 import "./style.css";
-Mainbar.propTypes = {};
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 function Mainbar(props) {
+  const [startDate, setStartDate] = useState(new Date());
   return (
     <div>
       <div className="mainbar">
@@ -16,18 +17,19 @@ function Mainbar(props) {
         <div className="mainbar-search" style={{ marginBottom: 20 }}>
           <div className="container">
             <ul className="tab-seach">
-              <li className="search-item search-item-active">
-                <i className="fa fa-globe" aria-hidden="true" />
-                <button>
-                  <span>Săn máy bay giá rẻ</span>
-                </button>
-              </li>
-              <li className="search-item">
+            <li className="search-item search-item-active">
                 <i className="fa fa-building" aria-hidden="true" />
                 <button>
                   <span>Săn phòng giá rẻ</span>
                 </button>
               </li>
+              <li className="search-item ">
+                <i className="fa fa-globe" aria-hidden="true" />
+                <button>
+                  <span>Săn máy bay giá rẻ</span>
+                </button>
+              </li>
+              
               <li className="search-item">
                 <i className="fa fa-university" aria-hidden="true" />
                 <button>
@@ -36,32 +38,8 @@ function Mainbar(props) {
               </li>
               <div className="line" />
             </ul>
+           
             <div className="tab-search-content active">
-              <div className="search-content">
-                <div className="search-content-item">
-                  <div>
-                    <i className="fa fa-location-arrow" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h5>Điểm khởi hành</h5>
-                    <input type="text" placeholder="Điểm khởi hành" />
-                  </div>
-                </div>
-                <div className="search-content-item">
-                  <div>
-                    <i className="fa fa-map-marker" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h5>Điểm đến</h5>
-                    <input type="text" placeholder="Điểm đến" />
-                  </div>
-                </div>
-              </div>
-              <div className="search-content">
-                <button>SĂN NGAY</button>
-              </div>
-            </div>
-            <div className="tab-search-content">
               <div className="search-content">
                 <div className="search-content-item search-content-item-2">
                   <div>
@@ -79,11 +57,11 @@ function Mainbar(props) {
                   <div className="search-content-item-day">
                     <div>
                       <h5>Ngày nhận phòng</h5>
-                      <input type="text" placeholder="Nhập ngày" />
+                      <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
                     </div>
                     <div>
                       <h5>Số ngày thuê phòng</h5>
-                      <input type="text" placeholder="Nhập số ngày" />
+                      <input type="text" name="rent" placeholder="Nhập số ngày" />
                     </div>
                   </div>
                 </div>

@@ -12,7 +12,7 @@ function Home(props) {
   return (
     <div>
       <Header></Header>
-      <div className="container-fluid">
+    
         <div className="main">
           {/*------------------------- mainbar ------------------*/}
           <Mainbar></Mainbar>
@@ -27,7 +27,7 @@ function Home(props) {
           {/*------------------------- app-info--------------- --*/}
           <AppInfo></AppInfo>
         </div>
-      </div>
+  
     <Footer></Footer>
       
     </div>

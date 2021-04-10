@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import "./style.css";
 import { $ } from "react-jquery-plugin";
 import Hotdeal from "../../Features/Home/Components/Hotdeal";
-import { Link, Route } from "react-router-dom";
+import { NavLink, Route } from "react-router-dom";
 import Hotel from "../../Features/Hotel";
 function Header(props) {
   return (
@@ -46,22 +46,21 @@ function Header(props) {
         <div className="container-fluid container-navbar">
           <div className="flex-container">
             <ul className="header-2">
-              <li className="tab-item tab-active">
-                <Link to="/">
+              <li className="tab-item">
+                <NavLink to="/" exact>
                   <span>
                     <i className="fab fa-asymmetrik" />
                   </span>
                   Săn giá rẻ
-                </Link>
+                </NavLink>
               </li>
               <li className="tab-item">
-                <Link to="/hotel">
+                <NavLink to="/hotel" exact>
                   <span>
                     <i className="fa fa-building" aria-hidden="true" />
                   </span>
                   Khách sạn
-                </Link>
-                {/* <a href="../home/hotel/index.html"></a> */}
+                </NavLink>
               </li>
               <li className="tab-item">
                 <a href="#">

@@ -98,7 +98,7 @@
   .header-2 i, .info-home i{
     margin-right: 5px;
   }
-  .header-2 .tab-active a{
+  .header-2 .tab-item .active{
     color: #ff8917;
     border-top: 2px solid #ff8917;
   }
