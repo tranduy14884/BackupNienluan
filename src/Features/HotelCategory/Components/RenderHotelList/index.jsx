@@ -182,74 +182,83 @@ function RenderHotelList(props) {
           </p>
           <h3>Khách sạn tại Thành phố Nha Trang, Khánh Hòa</h3>
           <div className="hotel-list d-flex flex-column">
-            {HotelList.map((item) => {
-              if (item.name == "Nha Trang") {
-                return item.list.map((list) => {
-                  <a
-                    href={list.link}
-                    className="hotel-list-item d-flex flex-row justify-content-between"
-                  >
-                    <div className="item-left d-flex flex-row">
-                      <div className="item-img">
-                        <img
-                          src={list.thumnailUrl}
-                          alt
-                        />
-                      </div>
-                      <div className="item-content">
-                        <h5>{list.title}</h5>
-                        <p>
-                          <i className="fas fa-star" />
-                          <i className="fas fa-star" />
-                          <i className="fas fa-star" />
-                          <i className="fas fa-star" />
-                        </p>
-                        <p className="item-title">
-                          <span>
-                            <i
-                              className="fas fa-map-marker-alt"
-                              style={{ marginRight: 5 }}
-                            />
-                          </span>
-                        {list.location}
-                        </p>
-                        <p className="icon-suport">
-                          <i className="fas fa-wifi" title="Wifi" />
-                          <i className="fas fa-swimmer" title="Bể bơi" />
-                          <i className="fas fa-utensils" title="Nhà hàng" />
-                          <i className="fas fa-car" title="Bãi đậu xe" />
-                        </p>
-                      </div>
-                    </div>
-                    <div className="item-right d-flex flex-column">
-                      <div className="item-rank d-flex flex-row justify-content-end">
-                        <div className="rank-text">
-                          <p>Rất tốt</p>
-                          <p>{list.rankNumber}</p>
+            {
+              HotelList.map((item) => {
+                if (item.name == "Nha Trang") {
+                  return item.list.map((hotel) => {
+                    return (
+                      <a
+                        href={hotel.link}
+                        className="hotel-list-item d-flex flex-row justify-content-between"
+                      >
+                        <div className="item-left d-flex flex-row">
+                          <div className="item-img">
+                            <img src={hotel.thumnailUrl} alt />
+                          </div>
+                          <div className="item-content">
+                            <h5>{hotel.title}</h5>
+                            <p>
+                              <i className="fas fa-star" />
+                              <i className="fas fa-star" />
+                              <i className="fas fa-star" />
+                              <i className="fas fa-star" />
+                            </p>
+                            <p className="item-title">
+                              <span>
+                                <i
+                                  className="fas fa-map-marker-alt"
+                                  style={{ marginRight: 5 }}
+                                />
+                              </span>
+                              {hotel.location}
+                            </p>
+                            <p className="icon-suport">
+                              <i className="fas fa-wifi" title="Wifi" />
+                              <i className="fas fa-swimmer" title="Bể bơi" />
+                              <i className="fas fa-utensils" title="Nhà hàng" />
+                              <i className="fas fa-car" title="Bãi đậu xe" />
+                            </p>
+                          </div>
                         </div>
-                        <div className="rank-point">
-                          <p>
-                            <i className="fas fa-angle-right" />
-                            <i className="fas fa-angle-right" />
-                            <i className="fas fa-star" />
-                            <i className="fas fa-angle-left" />
-                            <i className="fas fa-angle-left" />
-                          </p>
-                          <p>{list.rankPoint}</p>
+                        <div className="item-right d-flex flex-column">
+                          <div className="item-rank d-flex flex-row justify-content-end">
+                            <div className="rank-text">
+                              <p>Rất tốt</p>
+                              <p>{hotel.rankNumber}</p>
+                            </div>
+                            <div className="rank-point">
+                              <p>
+                                <i className="fas fa-angle-right" />
+                                <i className="fas fa-angle-right" />
+                                <i className="fas fa-star" />
+                                <i className="fas fa-angle-left" />
+                                <i className="fas fa-angle-left" />
+                              </p>
+                              <p>{hotel.rankPoint}</p>
+                            </div>
+                          </div>
+                          <div className="item-price">
+                            <span className="old-price">
+                              {formatter.format(hotel.price)} đ
+                            </span>
+                            <span className="discount-price">
+                              -{hotel.discount}%
+                            </span>
+                            <p className="price">
+                              {formatter.format(
+                                hotel.price - hotel.price * hotel.discount
+                              )}
+                            </p>
+                            <button>Xem phòng</button>
+                            <p>Chỉ còn {hotel.available} phòng !</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="item-price">
-                        <span className="old-price">{formatter.format(list.price)} đ</span>
-                        <span className="discount-price">-{list.discount}%</span>
-                        <p className="price">{formatter.format(list.price - (list.price * list.discount))}</p>
-                        <button>Xem phòng</button>
-                        <p>Chỉ còn {list.available} phòng !</p>
-                      </div>
-                    </div>
-                  </a>;
-                });
-              }
-            })}
+                      </a>
+                    );
+                  });
+                }
+              })
+            }
           </div>
           <div className="pagination" />
         </div>

@@ -78,7 +78,7 @@
     margin-right: 10px;
 }
 .rank-point{
-    margin-top: 7px;
+    margin-top: 0 !important;
 }
 .rank-text p:first-child, .rank-point p{
     color:#ff8917 ;

@@ -29,7 +29,7 @@ function HotelCategory(props) {
           title: "Khách sạn V Nha Trang",
           location: "8 Hùng Vương, Lộc Thọ, Thành phố Nha Trang, Khanh Hoa",
           rankNumber: 32,
-          rank: 4.1,
+          rankPoint: 4.1,
           price: 1550000,
           discount: 0.7,
           available: 7,
@@ -43,7 +43,7 @@ function HotelCategory(props) {
           location:
             "17/2A-B-C Nguyễn Thị Minh Khai, P. Lộc Thọ, TP. Nha Trang, Khánh Hòa",
           rankNumber: 39,
-          rank: 4.2,
+          rankPoint: 4.2,
           price: 1400000,
           discount: 0.6,
           available: 6,
@@ -57,7 +57,7 @@ function HotelCategory(props) {
           location:
             "16 Tôn Đản, Lộc Thọ, Thành phố Nha Trang, Khánh Hòa, Vietnam",
           rankNumber: 35,
-          rank: 3.8,
+          rankPoint: 3.8,
           price: 2000000,
           discount: 0.78,
           available: 2,
@@ -90,7 +90,7 @@ function HotelCategory(props) {
           title: "Grand Vista Hanoi Hotel",
           location: "146 Giảng Võ, Ba Đình, Hà Nội",
           rankNumber: 2,
-          rank: 4.3,
+          rankPoint: 4.3,
           price: 3000000,
           discount: 0.4,
           available: 3,
@@ -104,7 +104,7 @@ function HotelCategory(props) {
           location:
             "Nhà D3 Ngõ 71 Trần Quang Diệu (Tổ 101), Phường Ô Chợ Dừa, Quận Đống Đa, Hà Nội",
           rankNumber: 3,
-          rank: 4.2,
+          rankPoint: 4.2,
           price: 750000,
           discount: 0.3,
           available: 3,
@@ -117,7 +117,7 @@ function HotelCategory(props) {
           title: "The Q Hotel",
           location: "87-89-91 Nguyễn Trường Tộ, Trúc Bạch, Ba Đình, Hà Nội",
           rankNumber: 5,
-          rank: 3.8,
+          rankPoint: 3.8,
           price: 1000000,
           discount: 0.3,
           available: 5,
@@ -130,7 +130,7 @@ function HotelCategory(props) {
   ];
   return (
     <div>
-      <Header></Header>
+      <Header />
       <>
         {/*--------------------------------    main  ----------------------------*/}
         <div
