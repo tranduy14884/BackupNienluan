@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 RenderPlaces.propTypes = {
   places: PropTypes.array,
@@ -20,7 +21,7 @@ function RenderPlaces(props) {
               return (
                 <div className="hotel-place-col col-sm-6 col-md-2">
                   <div>
-                    <a href={place.link}>
+                    <Link to={place.link} exact>
                       <img
                         src={place.thumnailUrl}
                         alt
@@ -30,7 +31,7 @@ function RenderPlaces(props) {
                       <div className="content">
                         <h3>{place.name}</h3>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               );
@@ -38,7 +39,7 @@ function RenderPlaces(props) {
               return (
                 <div className="hotel-place-col col-sm-6 col-md-4">
                   <div>
-                    <a href={place.link}>
+                    <Link to={place.link} exact>
                       <img
                         src={place.thumnailUrl}
                         alt
@@ -48,7 +49,7 @@ function RenderPlaces(props) {
                       <div className="content">
                         <h3>{place.name}</h3>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               );

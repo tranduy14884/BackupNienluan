@@ -8,7 +8,7 @@ function HotelPlace(props) {
       name: "Hà Nội",
       thumnailUrl:
         "https://statics.vntrip.vn/website/images/dest.373x181.01.png",
-      link: "#",
+      link: "/hanoi",
     },
     {
       id: 2,
@@ -39,7 +39,7 @@ function HotelPlace(props) {
       id: 6,
       name: "Nha Trang",
       thumnailUrl: "https://statics.vntrip.vn/images/dest/dest.373x181.04.png",
-      link: "#",
+      link: "/nhatrang",
     },
     {
       id: 7,

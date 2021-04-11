@@ -1,0 +1,138 @@
+/*****tab********/
+.hotel-list-filter-tab{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 5px #f2f2f2;
+    width: 30%;
+    height: 600px;
+}
+.hotel-list-filter-tab>div{
+    padding: 20px;
+}
+.group-tab-item{
+    border-bottom: 1px solid #d9d9d9;
+}
+.form-check>label{
+    cursor: pointer;
+}
+.rank{
+    color: #ff8917;
+    font-size: 14px;
+}
+
+
+/********content*****/
+.hotel-list a{
+    text-decoration: none;
+    color: black;
+}
+.hotel-list-content{
+    width: 68%;
+    /* margin-left: 25px; */
+}
+.hotel-list-content h3{
+    font-size: 26px;
+}
+.hotel-list-item{
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 5px #f2f2f2;
+    padding: 10px;
+    border: 2px solid white;
+    background-color: white;
+    transition: 0.5s;
+    margin-bottom: 20px;
+}
+.item-left{
+    border-right: 1px dashed #e6e6e6;
+    width: 70%;
+    padding-right: 20px;
+}
+.item-right{
+    width: 25%;
+    padding-left: 0px;
+    text-align: right;
+}
+
+.hotel-list-item:hover{
+    border: 2px solid #ff8917;
+    transition: 1s;
+}
+.item-img img{
+    border-radius: 5px;
+    margin-right: 15px;
+}
+.item-content p{
+    font-size: 14px;
+}
+.item-title{
+    color: #808080;
+}
+.icon-suport>i, .item-content>p>i{
+    color:#ff8917 ;
+    margin-left: 5px;
+}
+.item-rank{
+    font-size: 16px;
+}
+.rank-text{
+    margin-right: 10px;
+}
+.rank-point{
+    margin-top: 7px;
+}
+.rank-text p:first-child, .rank-point p{
+    color:#ff8917 ;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+.rank-text p:last-child{
+    font-size: 14px;
+}
+.rank-point p:first-child{
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+.rank-point p:last-child{
+    font-size: 18px;
+}
+.old-price{
+    text-decoration: line-through;
+    color:  #999999;
+}
+.discount-price{
+    color: white;
+    background-color: red;
+    padding: 2px 8px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 14px;
+}
+.item-price .price{
+    color: #ff8917;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.item-price button{
+    background-color: #ff8917;
+    color: white;
+    border-radius: 5px;
+    padding: 6px 10px;
+    border: none;
+    font-weight: 500;
+}
+.item-price button + p{
+    color: red;
+}
+@media (max-width:991px)
+{
+    .item-left{
+        width: 100%;
+    }
+    .item-right{
+     width: 100%;  
+    }
+    .hotel-list-item{
+        flex-direction: column !important;
+    }
+}

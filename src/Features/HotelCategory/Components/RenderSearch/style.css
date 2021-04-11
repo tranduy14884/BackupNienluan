@@ -1,0 +1,21 @@
+.hotel-list-search-btn button{
+    width: 100%;
+}
+#datepicker{
+    width: 90%; 
+    margin: 0 20px 20px 20px;
+    background-color: white;
+}
+#datepicker > span:hover{
+    cursor: pointer;
+}
+.hotel-list-search{
+    background-color: white;
+    box-shadow: 1px 1px 5px 5px #f2f2f2;
+    border-radius: 10px;
+}
+.hotel-list-search>.row{
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
