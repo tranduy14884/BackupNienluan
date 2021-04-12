@@ -36,7 +36,7 @@ function RegisterForm(props) {
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
       <InputField name="fullName" form={form} label="todo" />
-      {/* <InputField /> */}
+    
     </form>
   );
 }
