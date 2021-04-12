@@ -1,13 +1,24 @@
-import React from "react";
-import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import Register from "../../Features/Auth/Components/RegisterForm";
 import iconhome from "./img/icon-home.png";
-import ReactDOM from "react-dom";
 import "./style.css";
-import { $ } from "react-jquery-plugin";
-import Hotdeal from "../../Features/Home/Components/Hotdeal";
-import { NavLink, Route } from "react-router-dom";
-import Hotel from "../../Features/Hotel";
+
 function Header(props) {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div>
       <div className="container header">
@@ -32,7 +43,7 @@ function Header(props) {
                 <div className="info-login"></div>
               </li>
               <li>
-                <p>Đăng nhập</p>
+                <p onClick={handleClickOpen}>Đăng nhập</p>
               </li>
               <li>
                 <p style={{ backgroundColor: "#ff8917" }}>Đăng ký</p>
@@ -101,6 +112,22 @@ function Header(props) {
           </div>
         </div>
       </div>
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogContent>
+          <Register />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
