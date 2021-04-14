@@ -1,40 +1,58 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Avatar, Button, makeStyles, TextField } from "@material-ui/core";
+import {
+  Avatar,
+
+
+
+
+
+
+  FormControl, IconButton,
+
+
+
+
+
+
+  InputAdornment, InputLabel, makeStyles,
+
+
+
+
+  OutlinedInput, TextField,
+
+  Typography
+} from "@material-ui/core";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import InputField from "../../../../Components/FormControl/InputField";
 import "./style.css";
-import Typography from '@material-ui/core/Typography';
 
 const useStyle = makeStyles((theme) => ({
-  
-  root : {
-    paddingTop : theme.spacing(2),
-
-
+  root: {
+    paddingTop: theme.spacing(2),
   },
 
-  avatar : {
-    margin : '0 auto',
-    backgroundColor : theme.palette.secondary.main,
+  avatar: {
+    margin: "0 auto",
+    backgroundColor: theme.palette.secondary.main,
   },
 
-  title : {
-    textAlign : 'center',
-    margin : theme.spacing(1, 0, 3, 0)
+  title: {
+    textAlign: "center",
+    margin: theme.spacing(1, 0, 3, 0),
   },
 
-  submit : {
-      backgroundColor : '#ff6600',
-      width : '100%',
-      padding : theme.spacing(1 , 0),
-      fontSize : '20px',
-      fontWeight : '600'
+  submit: {
+    backgroundColor: "#ff6600",
+    width: "100%",
+    padding: theme.spacing(1, 0),
+    fontSize: "20px",
+    fontWeight: "600",
   },
-
-
 }));
 RegisterForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -43,8 +61,16 @@ RegisterForm.propTypes = {
 function RegisterForm(props) {
   const classes = useStyle();
   const schema = yup.object().shape({
-    fullName: yup.string().required("Please enter data"),
-    email: yup.string().required("Please enter data"),
+    fullName: yup
+    .string()
+    .required("Please enter data")
+    .test('The least is two words','Please enter at least two words ',(value) =>{
+      return value.split(' ').length >= 2;
+    }),
+    email: yup
+    .string()
+    .required("Please enter data")
+    .email('Email is valid'),
     password: yup.string().required("Please enter data"),
     repassword: yup.string().required("Please enter data"),
   });
@@ -59,29 +85,91 @@ function RegisterForm(props) {
     },
   });
   const onSubmit = (data) => console.log(data);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
+
+  const toggleShowRePassword = () => {
+    setShowRePassword((x) => !x);
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword((x) => !x);
+  };
   return (
     <div className={classes.root}>
       <Avatar className={classes.avatar}>
         <i class="fas fa-unlock-alt"></i>
       </Avatar>
-      <Typography className={classes.title} component="h3" variant="h">
-          Create Account
-        </Typography>
+      <Typography className={classes.title} component="h3" variant="h5">
+        Create Account
+      </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField {...register("fullName")} label="Full name" variant="outlined" fullWidth />
+        <TextField
+          {...register("fullName")}
+          label="Full name"
+          variant="outlined"
+          fullWidth
+        />
         <p className="message">{errors.fullName?.message}</p>
 
-        <TextField {...register("email")} label="email"  variant="outlined" fullWidth  />
+        <TextField
+          {...register("email")}
+          label="email"
+          variant="outlined"
+          fullWidth
+        />
         <p className="message">{errors.email?.message}</p>
 
-        <TextField {...register("password")} label="password"  variant="outlined" fullWidth  />
+        <FormControl fullWidth variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">
+            Password
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? "text" : "password"}
+            {...register("password")}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={toggleShowPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={70}
+          />
+        </FormControl>
         <p className="message">{errors.password?.message}</p>
 
-        <TextField {...register("repassword")} label="repassword"  variant="outlined" fullWidth  />
+        <FormControl fullWidth variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-repassword">
+            RePassword
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-repassword"
+            type={showRePassword ? "text" : "password"}
+            {...register("repassword")}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={toggleShowRePassword}
+                  edge="end"
+                >
+                  {showRePassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={70}
+          />
+        </FormControl>
         <p className="message">{errors.repassword?.message}</p>
-
         <button className={classes.submit} type="submit">
-            CREATE AN ACCOUNT
+          CREATE AN ACCOUNT
         </button>
       </form>
     </div>
