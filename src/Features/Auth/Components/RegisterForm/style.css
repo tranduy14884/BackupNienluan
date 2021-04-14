@@ -4,3 +4,15 @@
 .field-title {
     margin-bottom: 0;
 }
+.MuiDialog-paperScrollPaper{
+    height: auto !important;
+    width: 500px !important;
+}
+.makeStyles-submit-4 {
+    border: none !important;
+    border-radius: 5px !important;
+    color: white;
+}
+.makeStyles-submit-4 button:focus{
+    border: none;
+}
