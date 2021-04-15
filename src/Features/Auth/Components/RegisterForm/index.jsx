@@ -71,8 +71,8 @@ function RegisterForm(props) {
     .string()
     .required("Please enter data")
     .email('Email is valid'),
-    password: yup.string().required("Please enter data"),
-    repassword: yup.string().required("Please enter data"),
+    password: yup.string().required("Please enter data").min(6,'Please enter at least 6 chars'),
+    repassword: yup.string().required("Please enter data").oneOf([yup.ref('password')],'Repassword does not match'),
   });
   const {
     register,
@@ -164,7 +164,7 @@ function RegisterForm(props) {
                 </IconButton>
               </InputAdornment>
             }
-            labelWidth={70}
+            labelWidth={100}
           />
         </FormControl>
         <p className="message">{errors.repassword?.message}</p>
