@@ -10,8 +10,16 @@ function App() {
   useEffect(() =>{
     const fetchProducts = async () =>{
       
-      const productList = await categoryApi.getAll();
+      const productList = await productApi.getAll();
       console.log(productList);
+      const test = {
+        name : 'Tran Khanh Duy',
+        categoryId : 1,
+        price : 123000,
+      }
+      // productApi.remove(6);
+      console.log(productList);
+
     }
     fetchProducts();
   },[])
