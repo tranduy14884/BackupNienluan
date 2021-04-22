@@ -7,22 +7,22 @@ import Home from "./Features/Home/Components";
 import Hotel from "./Features/Hotel";
 import HotelCategory from "./Features/HotelCategory";
 function App() {
-  useEffect(() =>{
-    const fetchProducts = async () =>{
+  // useEffect(() =>{
+  //   const fetchProducts = async () =>{
       
-      const productList = await productApi.getAll();
-      console.log(productList);
-      const test = {
-        name : 'Tran Khanh Duy',
-        categoryId : 1,
-        price : 123000,
-      }
-      // productApi.remove(6);
-      console.log(productList);
+  //     const productList = await productApi.getAll();
+  //     console.log(productList);
+  //     const test = {
+  //       name : 'Tran Khanh Duy',
+  //       categoryId : 1,
+  //       price : 123000,
+  //     }
+  //     // productApi.remove(6);
+  //     console.log(productList);
 
-    }
-    fetchProducts();
-  },[])
+  //   }
+  //   fetchProducts();
+  // },[])
   return (
     <div>
       <Route path="/" component={Home} exact></Route>

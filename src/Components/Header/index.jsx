@@ -5,7 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import Register from "../../Features/Auth/Components/RegisterForm";
+import Register from "../../Features/Auth/Components/Register";
 import iconhome from "./img/icon-home.png";
 import "./style.css";
 

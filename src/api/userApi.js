@@ -5,7 +5,7 @@ const userApi = {
   
     register(data)
     {
-        const url = '/accounts';
+        const url = '/accounts/register';
         return axiosClient.post(url, data);
     },
     

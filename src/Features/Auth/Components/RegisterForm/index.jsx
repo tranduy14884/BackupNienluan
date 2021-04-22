@@ -1,26 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Avatar,
-
-
-
-
-
-
-  FormControl, IconButton,
-
-
-
-
-
-
-  InputAdornment, InputLabel, makeStyles,
-
-
-
-
-  OutlinedInput, TextField,
-
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  makeStyles,
+  OutlinedInput,
+  TextField,
   Typography
 } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
@@ -30,6 +17,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import "./style.css";
+
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -54,6 +42,7 @@ const useStyle = makeStyles((theme) => ({
     fontWeight: "600",
   },
 }));
+
 RegisterForm.propTypes = {
   onSubmit: PropTypes.func,
 };
@@ -62,17 +51,24 @@ function RegisterForm(props) {
   const classes = useStyle();
   const schema = yup.object().shape({
     fullName: yup
-    .string()
-    .required("Please enter data")
-    .test('The least is two words','Please enter at least two words ',(value) =>{
-      return value.split(' ').length >= 2;
-    }),
-    email: yup
-    .string()
-    .required("Please enter data")
-    .email('Email is valid'),
-    password: yup.string().required("Please enter data").min(6,'Please enter at least 6 chars'),
-    repassword: yup.string().required("Please enter data").oneOf([yup.ref('password')],'Repassword does not match'),
+      .string()
+      .required("Please enter data")
+      .test(
+        "The least is two words",
+        "Please enter at least two words ",
+        (value) => {
+          return value.split(" ").length >= 2;
+        }
+      ),
+    email: yup.string().required("Please enter data").email("Email is valid"),
+    password: yup
+      .string()
+      .required("Please enter data")
+      .min(6, "Please enter at least 6 chars"),
+    repassword: yup
+      .string()
+      .required("Please enter data")
+      .oneOf([yup.ref("password")], "Repassword does not match"),
   });
   const {
     register,
@@ -84,8 +80,13 @@ function RegisterForm(props) {
       fullName: "",
     },
   });
-  const onSubmit = (data) => console.log(data);
 
+  const handleSubmitForm = (data) => {
+    const { onSubmit } = props;
+    if (onSubmit) {
+      onSubmit(data);
+    }
+  };
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
 
@@ -104,7 +105,7 @@ function RegisterForm(props) {
       <Typography className={classes.title} component="h3" variant="h5">
         Create Account
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleSubmitForm)}>
         <TextField
           {...register("fullName")}
           label="Full name"
