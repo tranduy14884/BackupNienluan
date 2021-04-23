@@ -12,20 +12,42 @@ export const registerUser = createAsyncThunk(
     return data.user;
   }
 );
+
+export const loginUser = createAsyncThunk(
+  "accounts/login",
+  async (payload) => {
+    //call Api to login
+    const data = await userApi.login(payload);
+    //save data to local
+    localStorage.setItem("access_token", data.jwt);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    return data.user;
+  }
+);
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    current: {},
+    current: JSON.parse(localStorage.getItem('user')) || {},
     settings: {},
   },
-  reducers: {},
+  reducers: {
+    logout(state){
+      //clear local Storage
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('user');
+      state.current = {};
+    }
+  },
   extraReducers: {
     [registerUser.fulfilled]: (state, action) => {
+      state.current = action.payload;
+    },
+    [loginUser.fulfilled]: (state, action) => {
       state.current = action.payload;
     },
   },
 });
 
-const { reducer } = userSlice;
-
+const {actions, reducer } = userSlice;
+export const { logout } = actions;
 export default reducer;

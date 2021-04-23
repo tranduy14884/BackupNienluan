@@ -38,11 +38,14 @@
   }
   .header-1 .info-home>li p{
     margin-bottom: 0;
-    border: 1px solid #ff8917;
+  
     min-width: 120px;
     min-height: 35px;
     cursor: pointer;
-    border-radius: 20px;
+    border: none !important;
+  }
+  .header-1 .info-home>li .icon-user{
+    font-size: 24px;
   }
   
   .icon-home{
@@ -101,6 +104,18 @@
   .header-2 .tab-item .active{
     color: #ff8917;
     border-top: 2px solid #ff8917;
+  }
+  .makeStyles-closeBtn-1:focus{
+    display: none !important;
+  }
+  .makeStyles-submit-19,.makeStyles-submit-5 , .makeStyles-submit-34{
+    border-radius: 10px;
+    border:none;
+    color: white;
+    margin-bottom: 10px;
+  }
+  .makeStyles-submit-5:focus, .MuiButton-textPrimary:focus,.makeStyles-closeBtn-30:focus{
+    outline: none;
   }
   @media (max-width:997px)
   {
