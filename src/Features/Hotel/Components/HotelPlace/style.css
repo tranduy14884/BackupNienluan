@@ -28,11 +28,12 @@
 .row .hotel-place-col a{
     text-decoration: white underline;
 }
-.row .hotel-place-col a img{
+.row .hotel-place-col div img{
     transition: 1s;
     border-radius: 5px;
+    cursor: pointer;
 }
-.row .hotel-place-col a img:hover{
+.row .hotel-place-col div img:hover{
     transform: scale(1.1);
     transition: 1s;
 }

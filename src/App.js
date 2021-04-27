@@ -1,15 +1,16 @@
 import { useEffect } from "react";
-import { NavLink, Route } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import categoryApi from "./api/categoryApi";
 import productApi from "./api/productApi";
 import "./App.css";
 import Home from "./Features/Home/Components";
 import Hotel from "./Features/Hotel";
+import DetailPlace from "./Features/Hotel/Components/HotelPlace/Components/DetailPlace";
 import HotelCategory from "./Features/HotelCategory";
 function App() {
   // useEffect(() =>{
   //   const fetchProducts = async () =>{
-      
+
   //     const productList = await productApi.getAll();
   //     console.log(productList);
   //     const test = {
@@ -25,9 +26,14 @@ function App() {
   // },[])
   return (
     <div>
-      <Route path="/" component={Home} exact></Route>
-      <Route path="/hotel" component={Hotel} exact></Route>
-      <Route path="/nhatrang" component={HotelCategory} exact></Route>
+      <Switch>
+        <Route path="/" component={Home} exact></Route>
+        <Route path="/hotel" component={Hotel} exact></Route>        
+        <Route path="/hotel/:categoryId" component={DetailPlace} exact/>
+
+      </Switch>
+       
+
       
     </div>
   );
