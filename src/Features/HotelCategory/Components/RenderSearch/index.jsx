@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 RenderSearch.propTypes = {
     
 };
 
 function RenderSearch(props) {
+  const [startDate, setStartDate] = useState(new Date());
+  const checkDate = (date) =>{
+      setStartDate(date);
+  }
     return (
         <div>
              {/*-------------------- hotel-list-search -----------------*/}
@@ -25,20 +31,14 @@ function RenderSearch(props) {
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-3">
+                <div className="col-sm-2">
                   <div
                     id="datepicker"
-                    className="input-group date"
-                    data-date-format="dd-mm-yyyy"
                   >
-                    {" "}
-                    <input className="form-control" readOnly type="text" />
-                    <span className="input-group-addon">
-                      <i className="glyphicon glyphicon-calendar" />
-                    </span>
+                    <DatePicker selected={startDate} onChange={checkDate} />
                   </div>
                 </div>
-                <div className="col-sm-2">
+                <div className="col-sm-3 ">
                   <div className="input-group">
                     <input
                       type="text"

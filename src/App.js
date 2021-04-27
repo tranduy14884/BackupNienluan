@@ -29,7 +29,7 @@ function App() {
       <Switch>
         <Route path="/" component={Home} exact></Route>
         <Route path="/hotel" component={Hotel} exact></Route>        
-        <Route path="/hotel/:categoryId" component={DetailPlace} exact/>
+        <Route path="/hotel/:placeId" component={DetailPlace} exact/>
 
       </Switch>
        

@@ -25,6 +25,7 @@
 .hotel-list a{
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 .hotel-list-content{
     width: 68%;

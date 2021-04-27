@@ -15,7 +15,7 @@ function Places(props) {
     };
 
   return (
-    <div>
+    <div key={place.id}>
       <img src={place.thumnailUrl} alt width="100%" height="100%" onClick={handleClick}/>
       <div className="content">
         <h3>{place.name}</h3>
