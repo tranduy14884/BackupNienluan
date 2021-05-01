@@ -1,7 +1,7 @@
-import React from "react";
 import PropTypes from "prop-types";
-import "./style.css";
+import React, { useEffect, useState } from "react";
 import TabSearch from "./Components/TabSearch";
+import "./style.css";
 RenderHotelList.propTypes = {
   HotelList: PropTypes.array,
   name : PropTypes.string,
@@ -13,10 +13,42 @@ RenderHotelList.defaultProps = {
 function RenderHotelList(props) {
   const { HotelList ,name, number } = props;
   const formatter = new Intl.NumberFormat("es");
+  //filter follow price
+  
+  const [newList,setNewList] = useState(HotelList);
+  useEffect(() => {
+    setNewList(HotelList);
+  }, [HotelList])
+  // console.log(newList);
+  // let newList = [...HotelList];
+
+ 
+  const handleFilterPrice = (data) =>{
+    let listFilter = [];
+    if(data==500)
+    {
+      listFilter = HotelList.filter(item => ( (item.price - item.price * item.discount) <= 500000));
+    }
+    if(data==800)
+    {
+      listFilter = HotelList.filter(item => ( (item.price - item.price * item.discount) > 500000) && ((item.price - item.price * item.discount) <= 1000000));
+    }
+    if(data==1500)
+    {
+      listFilter = HotelList.filter(item => ( (item.price - item.price * item.discount) > 1000000) && ((item.price - item.price * item.discount) <= 2000000));
+    }
+    if(data==2500)
+    {
+      listFilter = HotelList.filter(item => ( (item.price - item.price * item.discount) > 2000000) && ((item.price - item.price * item.discount) <= 5000000));
+    }
+    setNewList(listFilter);
+  }
+  
+
   return (
     <div>
       <div className="hotel-list-body d-flex justify-content-between">
-        <TabSearch />
+        <TabSearch handleFilter={handleFilterPrice}/>
         <div className="hotel-list-content">
           <p>
             Trang chủ &gt;{" "}
@@ -28,13 +60,13 @@ function RenderHotelList(props) {
           <h3>Khách sạn tại Thành phố {name}</h3>
           <div className="hotel-list d-flex flex-column">
             {
-              HotelList.map((hotel) => {
+              newList.map((hotel) => {
                     return (
                       <a
-                        key={hotel.id}
+                        
                         className="hotel-list-item d-flex flex-row justify-content-between"
                       >
-                        <div className="item-left d-flex flex-row">
+                        <div className="item-left d-flex flex-row" key={hotel.id}>
                           <div className="item-img">
                             <img src={hotel.thumnailUrl} alt />
                           </div>
@@ -85,7 +117,7 @@ function RenderHotelList(props) {
                               {formatter.format(hotel.price)} đ
                             </span>
                             <span className="discount-price">
-                              -{hotel.discount *100}%
+                              - {(hotel.discount * 1000)/10}%
                             </span>
                             <p className="price">
                               {formatter.format(
@@ -101,7 +133,6 @@ function RenderHotelList(props) {
               })
             }
           </div>
-          <div className="pagination" />
         </div>
       </div>
     </div>

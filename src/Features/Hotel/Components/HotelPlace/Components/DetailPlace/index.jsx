@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Pagination from "react-js-pagination";
 import { useRouteMatch } from "react-router";
 import categoryApi from "../../../../../../api/categoryApi";
 import productApi from "../../../../../../api/productApi";
@@ -6,21 +7,21 @@ import Footer from "../../../../../../Components/Footer";
 import Header from "../../../../../../Components/Header";
 import RenderHotelList from "../../../../../HotelCategory/Components/RenderHotelList";
 import RenderSearch from "../../../../../HotelCategory/Components/RenderSearch";
-
+import './style.css';
 DetailPlace.propTypes = {};
 
 function DetailPlace(props) {
     const match = useRouteMatch();
     const { params : { placeId }} = match;
    const [ dataId, setDataId] = useState({});
-    //get place from API
+    // get place from API
     useEffect(()=>{
       (
         async() =>{
             try {
               const data = await categoryApi.get(placeId);
               setDataId(data);
-              // console.log(dataId);
+              
             } catch (error) {
               console.log(error);
             }
@@ -44,7 +45,17 @@ function DetailPlace(props) {
     // console.log(listHotel);
     //check Id listHotel
     const data = listHotel.filter(item => item.categoryId == placeId);
-    // console.log(data);
+    
+    //set state active page
+    const [activePage, setActivePage] = useState(1);
+    const [hotelsPerPage , setHotelsPerPage] = useState(6);
+    const indexOfLast = activePage * hotelsPerPage;
+    const indexOfFirst = indexOfLast - hotelsPerPage;
+    const currentHotel = data.slice(indexOfFirst, indexOfLast);
+    const handlePageChange = (pageNumber) => {
+      setActivePage(pageNumber);
+    }
+    
   return (
     <div>
       <Header />
@@ -58,7 +69,19 @@ function DetailPlace(props) {
             {/*-------------------- hotel-list-search -----------------*/}
             <RenderSearch></RenderSearch>
             {/*-------------------- hotel-list-body -----------------*/}
-            <RenderHotelList HotelList={data} name={dataId.name} number={dataId.number}></RenderHotelList>
+            <RenderHotelList HotelList={currentHotel} name={dataId.name} number={dataId.number}></RenderHotelList>
+            <div>
+            <Pagination 
+              activePage={activePage}
+              itemsCountPerPage={hotelsPerPage}
+              totalItemsCount={data.length}
+              pageRangeDisplayed={Math.ceil(data.length / hotelsPerPage)}
+              onChange={handlePageChange}
+              itemClass="page-item"
+              linkClass="page-link"
+            />
+            </div>
+            
           </div>
         </div>
       </>

@@ -80,7 +80,7 @@ function RegisterForm(props) {
   } = useForm({
     resolver: yupResolver(schema),
    defaultValues:{
-     
+  
    }
   });
  

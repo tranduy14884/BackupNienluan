@@ -1,12 +1,19 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 
 TabSearch.propTypes = {
-    
+  handleFilter : PropTypes.func,
 };
 
 function TabSearch(props) {
+    const { handleFilter } = props;
+    const handleClick = async (data)=>{
+      if(handleFilter)
+      {
+        await handleFilter(data.target.defaultValue);
+      }
+    }
     return (
         <div className="hotel-list-filter-tab">
           <div>
@@ -23,6 +30,8 @@ function TabSearch(props) {
                         className="form-check-input"
                         type="checkbox"
                         name="500d"
+                        value="500"
+                        onClick={handleClick}
                       />{" "}
                       Dưới 500.000đ
                     </label>
@@ -31,6 +40,9 @@ function TabSearch(props) {
                         className="form-check-input"
                         type="checkbox"
                         name="500-1000"
+                        value="800"
+                        onClick={handleClick}
+
                       />{" "}
                       500.000đ - 1.000.000đ
                     </label>
@@ -39,6 +51,9 @@ function TabSearch(props) {
                         className="form-check-input"
                         type="checkbox"
                         name="1000-2000"
+                        value="1500"
+                        onClick={handleClick}
+
                       />{" "}
                       1.000.000đ - 2.000.000đ
                     </label>
@@ -47,6 +62,9 @@ function TabSearch(props) {
                         className="form-check-input"
                         type="checkbox"
                         name="2000-5000"
+                        value="2500"
+                        onClick={handleClick}
+
                       />{" "}
                       2.000.000đ - 5.000.000
                     </label>

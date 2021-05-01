@@ -1,0 +1,6 @@
+.hotel-list-main>.container>div:last-child{
+    padding-bottom: 5px;
+}
+.hotel-list-main>.container>div:last-child .pagination{
+    justify-content: center;
+}

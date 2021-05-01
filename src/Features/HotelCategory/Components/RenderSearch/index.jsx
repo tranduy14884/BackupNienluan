@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import './style.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import './style.css';
 RenderSearch.propTypes = {
     
 };
