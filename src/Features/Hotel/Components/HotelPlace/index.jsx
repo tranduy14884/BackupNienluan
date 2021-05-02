@@ -10,7 +10,6 @@ function HotelPlace(props) {
     <div>
       <Switch>
         <Route path={match.url} component={ListPlaces} exact/>
-
       </Switch>
     </div>
   );

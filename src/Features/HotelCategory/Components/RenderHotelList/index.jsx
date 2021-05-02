@@ -63,10 +63,10 @@ function RenderHotelList(props) {
               newList.map((hotel) => {
                     return (
                       <a
-                        
+                        key={hotel.id}
                         className="hotel-list-item d-flex flex-row justify-content-between"
                       >
-                        <div className="item-left d-flex flex-row" key={hotel.id}>
+                        <div className="item-left d-flex flex-row" >
                           <div className="item-img">
                             <img src={hotel.thumnailUrl} alt />
                           </div>
