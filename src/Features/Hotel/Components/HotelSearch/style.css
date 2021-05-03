@@ -38,21 +38,5 @@
 .hotel-search>.container>.row>.active>a{
     color: #ff751a;
 }
-#datepicker{
-    width:180px; 
-    margin: 0 20px 20px 0px;
-}
-#datepicker > span:hover{
-    cursor: pointer;
-}
-.react-datepicker__input-container input{
-    height: 38px ;
-    border: 1px solid #ced4da;
-    color: #808080;
-    padding-left: 10px;
-    border-radius: 5px;
-}
-.react-datepicker__input-container input:focus{
-    outline: #666666;
-}
+
 

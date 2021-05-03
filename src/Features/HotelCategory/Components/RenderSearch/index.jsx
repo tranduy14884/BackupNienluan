@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 import "./style.css";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useSnackbar } from "notistack";
 
 RenderSearch.propTypes = {
   handleSubmitSearch : PropTypes.func,
@@ -16,11 +18,18 @@ function RenderSearch(props) {
   const { handleSubmit, register } = useForm({
     defaultValues: {},
   });
+  const { enqueueSnackbar } = useSnackbar();
   const handleSubmitFind = async (data) => {
     if(handleSubmitSearch)
     { 
-      await handleSubmitSearch(data);
+      if(typeof data.ngaynhanphong ==="undefined" || typeof data.search === "undefined" || typeof data.ngaythue === "undefined")
+      {
+        enqueueSnackbar("Bộ lọc chưa hợp lệ", { variant: "error" });
+     
+      }
+      else await handleSubmitSearch(data);
     }
+
   };
   return (
     <div>

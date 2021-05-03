@@ -34,7 +34,7 @@ function RenderItems(props) {
         <div className="owl-carousel owl-theme">
           <Slider {...settings}>
             {items.map((item) => (
-              <div className="container-item">
+              <div className="container-item" key={item.id}>
                 <div className="item">
                   <a href="#">
                     <div className="item-img">

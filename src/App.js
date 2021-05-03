@@ -7,6 +7,7 @@ import Home from "./Features/Home/Components";
 import Hotel from "./Features/Hotel";
 import DetailPlace from "./Features/Hotel/Components/HotelPlace/Components/DetailPlace";
 import HotelCategory from "./Features/HotelCategory";
+import RenderHotelDetail from "./Features/HotelCategory/Components/RenderHotelDetail";
 function App() {
   // useEffect(() =>{
   //   const fetchProducts = async () =>{
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" component={Home} exact></Route>
         <Route path="/hotel" component={Hotel} exact></Route>        
         <Route path="/hotel/:placeId" component={DetailPlace} exact/>
+        <Route path="/hotel/detail/:hotelId" component={RenderHotelDetail} exact/>
 
       </Switch>
        

@@ -1,16 +1,14 @@
+import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
-import { useRouteMatch } from "react-router";
+import { useHistory, useRouteMatch } from "react-router";
 import categoryApi from "../../../../../../api/categoryApi";
 import productApi from "../../../../../../api/productApi";
 import Footer from "../../../../../../Components/Footer";
 import Header from "../../../../../../Components/Header";
 import RenderHotelList from "../../../../../HotelCategory/Components/RenderHotelList";
 import RenderSearch from "../../../../../HotelCategory/Components/RenderSearch";
-import { unwrapResult } from "@reduxjs/toolkit";
-import { useSnackbar } from "notistack";
 import "./style.css";
-import { useForm } from "react-hook-form";
 DetailPlace.propTypes = {};
 
 function DetailPlace(props) {
@@ -19,6 +17,7 @@ function DetailPlace(props) {
     params: { placeId },
   } = match;
   const [dataId, setDataId] = useState({});
+
   // get place from API
   useEffect(() => {
     (async () => {
@@ -30,6 +29,7 @@ function DetailPlace(props) {
       }
     })();
   }, [placeId]);
+
   //get list hotel list from api
   const [listHotel, setListHotel] = useState([]);
   useEffect(() => {
@@ -42,7 +42,6 @@ function DetailPlace(props) {
       }
     })();
   }, []);
-  // console.log(listHotel);
   //check Id listHotel
   const data = listHotel.filter((item) => item.categoryId == placeId);
   //set state active page
@@ -50,12 +49,14 @@ function DetailPlace(props) {
   const [hotelsPerPage, setHotelsPerPage] = useState(6);
   const indexOfLast = activePage * hotelsPerPage;
   const indexOfFirst = indexOfLast - hotelsPerPage;
-  const [currentHotel, setCurrentHotel] = useState((data.slice(indexOfFirst, indexOfLast)));
+  const [currentHotel, setCurrentHotel] = useState([]);
+  useEffect(() => {
+    setCurrentHotel(data.slice(indexOfFirst, indexOfLast));
+  }, [data.slice(indexOfFirst, indexOfLast).length - activePage]);
+
   // const currentHotel = data.slice(indexOfFirst, indexOfLast);
   // const [newList,setNewList] = useState(HotelList);
-  // useEffect(() => {
-  //   setCurrentHotel(data.slice(indexOfFirst, indexOfLast));
-  // }, [activePage]);
+
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
   };
@@ -83,20 +84,26 @@ function DetailPlace(props) {
     }
     const currentTime = `${currentYear}-${currentMonth}-${currentDate}`;
 
-    if (Date.parse(dataSearch.ngaynhanphong) < Date.parse(currentTime)) {
-      enqueueSnackbar("Ngày nhận phòng không hợp lệ", { variant: "error" });
-    }
-    if (dataSearch.ngaynhanphong == "" || dataSearch.search == "" || dataSearch.ngaythue == "") {
+    if (
+      dataSearch.ngaynhanphong == "" ||
+      dataSearch.search == "" ||
+      dataSearch.ngaythue == "" ||
+      Date.parse(dataSearch.ngaynhanphong) < Date.parse(currentTime)
+    ) {
       enqueueSnackbar("Bộ lọc chưa hợp lệ", { variant: "error" });
-    }
-    else{
-        const filterSearch = data.filter(item =>{
-          return (item.location.toUpperCase().includes(dataSearch.search.toUpperCase()))
-        })
-        setCurrentHotel(filterSearch);
+    } else {
+      const filterSearch = data.filter((item) => {
+        return item.location
+          .toUpperCase()
+          .includes(dataSearch.search.toUpperCase());
+      });
+      enqueueSnackbar(`Đã tìm thấy ${filterSearch.length} kết quả`, {
+        variant: "success",
+      });
+      setCurrentHotel(filterSearch);
     }
   };
-
+  
   return (
     <div>
       <Header />
@@ -113,6 +120,7 @@ function DetailPlace(props) {
             ></RenderSearch>
             {/*-------------------- hotel-list-body -----------------*/}
             <RenderHotelList
+            
               HotelList={currentHotel}
               name={dataId.name}
               number={dataId.number}

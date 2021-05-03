@@ -24,51 +24,51 @@ function TabSearch(props) {
               <div className="group-tab-item">
                 <p>Mức giá</p>
                 <div className="group-tab-content">
-                  <div className="form-group form-check d-flex flex-column">
+                  <form className="form-group form-check d-flex flex-column">
                     <label className="form-check-label">
                       <input
                         className="form-check-input"
-                        type="checkbox"
-                        name="500d"
+                        type="radio"
+                        name="price"
                         value="500"
                         onClick={handleClick}
-                      />{" "}
+                      />
                       Dưới 500.000đ
                     </label>
                     <label className="form-check-label">
                       <input
                         className="form-check-input"
-                        type="checkbox"
-                        name="500-1000"
+                        type="radio"
+                        name="price"
                         value="800"
                         onClick={handleClick}
 
-                      />{" "}
+                      />
                       500.000đ - 1.000.000đ
                     </label>
                     <label className="form-check-label">
                       <input
                         className="form-check-input"
-                        type="checkbox"
-                        name="1000-2000"
+                        type="radio"
+                        name="price"
                         value="1500"
                         onClick={handleClick}
 
-                      />{" "}
+                      />
                       1.000.000đ - 2.000.000đ
                     </label>
                     <label className="form-check-label">
                       <input
                         className="form-check-input"
-                        type="checkbox"
-                        name="2000-5000"
+                        type="radio"
+                        name="price"
                         value="2500"
                         onClick={handleClick}
 
-                      />{" "}
+                      />
                       2.000.000đ - 5.000.000
                     </label>
-                  </div>
+                  </form>
                 </div>
               </div>
               <div className="group-tab-item">
@@ -80,7 +80,7 @@ function TabSearch(props) {
                         className="form-check-input"
                         type="checkbox"
                         name="500d"
-                      />{" "}
+                      />
                       <i className="fas fa-star" />
                       <i className="fas fa-star" />
                       <i className="fas fa-star" />

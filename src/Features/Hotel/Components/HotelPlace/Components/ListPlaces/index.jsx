@@ -20,7 +20,7 @@ function ListPlaces(props) {
           {categoryList.map((place) => {
             if (place.id == 2 || place.id == 3) {
               return (
-                <div
+                <div key={place.id}
                   className="hotel-place-col col-sm-6 col-md-2"
                 >
                   <Places place={place}/>
@@ -28,7 +28,7 @@ function ListPlaces(props) {
               );
             } else {
               return (
-                <div
+                <div key={place.id}
                   className="hotel-place-col col-sm-6 col-md-4"
                 >
                   <Places place={place}/>
