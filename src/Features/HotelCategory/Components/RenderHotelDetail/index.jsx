@@ -34,7 +34,8 @@ function RenderHotelDetail(props) {
     }
     getData();
   },[]);
-  console.log(room);
+  const roomFilter = room.filter(item => (item.productId == hotelId));
+  // console.log(roomFilter);
 
   return (
     <div>
@@ -134,13 +135,12 @@ function RenderHotelDetail(props) {
               {/*------------------ hotel-detail-body -------------------*/}
               <div className="hotel-detail-body d-flex flex-column">
                 <div className="list-room">
-                  <div className="room-item">
+                  
                     {
-                      room.map(item =>{
+                      roomFilter.map(item =>{
                         return <RenderRoom room={item}></RenderRoom>
                       })
                     }
-                  </div>
                  
                 </div>
               </div>

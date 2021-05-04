@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router';
 
 RenderRoom.propTypes = {
     room:PropTypes.object,
@@ -8,8 +9,12 @@ RenderRoom.propTypes = {
 function RenderRoom(props) {
     const {room} = props;
     const formatter = new Intl.NumberFormat('es');
+    const history = useHistory();
+    const handleClick = ()=>{
+      history.push(`/hotel/detail/pay/${room.id}`);
+    }
     return (
-        <div>
+          <div className="room-item">
             <div className="room-item-header d-flex">
                       <div className="img">
                         <img
@@ -83,10 +88,10 @@ function RenderRoom(props) {
                         <p>Giá đã bao gồm phí và thuế</p>
                       </div>
                       <div className="d-flex flex-column">
-                        <button>Đặt phòng</button>
+                        <button onClick={handleClick}>Đặt phòng</button>
                       </div>
                     </div>
-        </div>
+                    </div>
     );
 }
 
