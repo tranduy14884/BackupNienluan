@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useRouteMatch } from "react-router";
 import "./style.css";
 import Header from "../../../../Components/Header";
 import Footer from "../../../../Components/Footer";
 import RenderSearch from "../RenderSearch";
+import detailApi from "../../../../api/detailApi";
+import RenderRoom from "../RenderRoom";
+import roomApi from "../../../../api/roomApj";
 RenderHotelDetail.propTypes = {};
 
 function RenderHotelDetail(props) {
   const match = useRouteMatch();
-  console.log(match);
+  const {
+    params: { hotelId },
+  } = match;
+  //get detail from Api
+  const [data,setData] = useState({});
+  useEffect(() => {
+    const getData = async ()=>{
+        const dataDetailApi = await detailApi.get(hotelId);
+        setData(dataDetailApi);
+        
+    }
+    getData();
+  },[hotelId]);
+  //get rooms from Api
+  const [ room,setRoom ] = useState([]);
+  useEffect(() => {
+    const getData = async ()=>{
+        const dataApi = await roomApi.getAll();
+        setRoom(dataApi);
+    }
+    getData();
+  },[]);
+  console.log(room);
+
   return (
     <div>
       <>
@@ -23,13 +49,12 @@ function RenderHotelDetail(props) {
               {/*--------------------- title ---------------------*/}
               <div className="title-detail d-flex">
                 <a href="#">Trang chủ &gt;</a>
-                <a href="#">Khách sạn tại Khánh Hòa &gt;</a>
-                <p>Khách sạn Imperial Nha Trang</p>
+                <p>{data.name}</p>
               </div>
               {/*------------------ hotel-detail-header ----------------*/}
               <div className="hotel-detail-header">
                 <div className="d-flex align-items-end">
-                  <h2>Khách sạn Imperial Nha Trang</h2>
+                  <h2>{data.name}</h2>
                   <p>
                     <i className="fas fa-star" />
                     <i className="fas fa-star" />
@@ -41,32 +66,31 @@ function RenderHotelDetail(props) {
                   <span style={{ marginRight: 10 }}>
                     <i className="fas fa-map-marker-alt" />
                   </span>
-                  20 Trần Phú, Vĩnh Nguyên, Thành phố Nha Trang, Khánh Hòa, Việt
-                  Nam
+                  {data.location}
                 </p>
                 <div className="img-header">
                   <div className="row">
                     <div className="col-md-6 col-sm-12">
                       <div className="img-col">
                         <img
-                          src="https://i.vntrip.vn/471x290/smart/https://statics.vntrip.vn/data-v2/hotels/12536/img_max/12536_1529288074_6.jpg"
-                          alt
+                          src={data.thumnailUrl1}
+                          alt={data.thumnailUrl1}
                         />
                       </div>
                     </div>
                     <div className="col-md-3 col-sm-12">
                       <div className="img-col">
                         <img
-                          src="https://i.vntrip.vn/886x290/smart/https://statics.vntrip.vn/data-v2/hotels/12536/img_max/12536_1529288096_view_2.jpg"
-                          alt
+                          src={data.thumnailUrl2}
+                          alt={data.thumnailUrl1}
                         />
                       </div>
                     </div>
                     <div className="col-md-3 col-sm-12">
                       <div className="img-col">
                         <img
-                          src="https://i.vntrip.vn/584x290/smart/https://statics.vntrip.vn/data-v2/hotels/12536/img_max/12536_1528344605_deluxe_1.jpg"
-                          alt
+                          src={data.thumnailUrl3}
+                          alt={data.thumnailUrl3}
                         />
                       </div>
                     </div>
@@ -75,32 +99,32 @@ function RenderHotelDetail(props) {
                     <div className="col-md-3 col-sm-6">
                       <div className="img-col">
                         <img
-                          src="https://i.vntrip.vn/275x140/smart/https://statics.vntrip.vn/data-v2/hotels/12536/img_max/12536_1528344910_sup_1.jpg"
-                          alt
+                          src={data.thumnailUrl4}
+                          alt={data.thumnailUrl4}
                         />
                       </div>
                     </div>
                     <div className="col-md-3 col-sm-6">
                       <div className="img-col">
                         <img
-                          src="https://i.vntrip.vn/275x140/smart/https://statics.vntrip.vn/data-v2/hotels/12536/img_max/12536_1529288096_view_1.jpg"
-                          alt
+                          src={data.thumnailUrl5}
+                          alt={data.thumnailUrl5}
                         />
                       </div>
                     </div>
                     <div className="col-md-3 col-sm-6">
                       <div className="img-col">
                         <img
-                          src="https://i.vntrip.vn/142x140/smart/https://statics.vntrip.vn/data-v2/hotels/12536/img_max/12536_1528346592_bathroom_2.jpg"
-                          alt
+                          src={data.thumnailUrl6}
+                          alt={data.thumnailUrl6}
                         />
                       </div>
                     </div>
                     <div className="col-md-3 col-sm-6">
                       <div className="img-col">
                         <img
-                          src="https://i.vntrip.vn/142x140/smart/https://statics.vntrip.vn/data-v2/hotels/12536/img_max/12536_1528344910_sup_5.jpg"
-                          alt
+                          src={data.thumnailUrl7}
+                          alt={data.thumnailUrl7}
                         />
                       </div>
                     </div>
@@ -111,161 +135,13 @@ function RenderHotelDetail(props) {
               <div className="hotel-detail-body d-flex flex-column">
                 <div className="list-room">
                   <div className="room-item">
-                    <div className="room-item-header d-flex">
-                      <div className="img">
-                        <img
-                          src="https://statics2.vntrip.vn/165x165/data-v2/hotels/12536/img_max/12536_1528344910_sup_1.jpg"
-                          alt
-                        />
-                      </div>
-                      <div className="content d-flex flex-column">
-                        <h3>Superior City View (Window)</h3>
-                        <div className="content-info d-flex">
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-bed" />
-                            </span>
-                            1 giường
-                          </p>
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-cube" />
-                            </span>
-                            Diện tích : 25 m2
-                          </p>
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-bath" />
-                            </span>
-                            Bồn tắm
-                          </p>
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-tv" />
-                            </span>
-                            TV màn hình phẳng
-                          </p>
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-swimmer" />
-                            </span>
-                            Bể bơi riêng
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="room-item-body d-flex">
-                      <div className="content d-flex">
-                        <p>
-                          <span className="icon">
-                            <i className="fas fa-spinner" />
-                          </span>
-                          Hủy phòng
-                        </p>
-                        <p>
-                          <span className="icon">
-                            <i className="fas fa-utensils" />
-                          </span>
-                          Bao gồm buổi sáng
-                        </p>
-                        <p>
-                          <span className="icon">
-                            <i className="fas fa-male" />
-                          </span>
-                          Sức chứa 2 người lớn
-                        </p>
-                      </div>
-                      <div className="price d-flex flex-column">
-                        <p>
-                          <span className="old-price">850.000đ</span>
-                          <span className="discount-price">-40%</span>
-                        </p>
-                        <p>510.000đ</p>
-                        <p>Giá đã bao gồm phí và thuế</p>
-                      </div>
-                      <div className="d-flex flex-column">
-                        <button>Đặt phòng</button>
-                      </div>
-                    </div>
+                    {
+                      room.map(item =>{
+                        return <RenderRoom room={item}></RenderRoom>
+                      })
+                    }
                   </div>
-                  <div className="room-item">
-                    <div className="room-item-header d-flex">
-                      <div className="img">
-                        <img
-                          src="https://statics2.vntrip.vn/165x165/data-v2/hotels/12536/img_max/12536_1611041843_suite1.jpg"
-                          alt
-                        />
-                      </div>
-                      <div className="content d-flex flex-column">
-                        <h3>Superior City View (Window)</h3>
-                        <div className="content-info d-flex">
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-bed" />
-                            </span>
-                            2 giường
-                          </p>
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-cube" />
-                            </span>
-                            Diện tích : 25 m2
-                          </p>
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-bath" />
-                            </span>
-                            Bồn tắm
-                          </p>
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-tv" />
-                            </span>
-                            TV màn hình phẳng
-                          </p>
-                          <p>
-                            <span className="icon">
-                              <i className="fas fa-swimmer" />
-                            </span>
-                            Bể bơi riêng
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="room-item-body d-flex">
-                      <div className="content d-flex">
-                        <p>
-                          <span className="icon">
-                            <i className="fas fa-spinner" />
-                          </span>
-                          Hủy phòng
-                        </p>
-                        <p>
-                          <span className="icon">
-                            <i className="fas fa-utensils" />
-                          </span>
-                          Bao gồm buổi sáng
-                        </p>
-                        <p>
-                          <span className="icon">
-                            <i className="fas fa-male" />
-                          </span>
-                          Sức chứa 2 người lớn
-                        </p>
-                      </div>
-                      <div className="price d-flex flex-column">
-                        <p>
-                          <span className="old-price">1.250.000đ</span>
-                          <span className="discount-price">-40%</span>
-                        </p>
-                        <p>720.000đ</p>
-                        <p>Giá đã bao gồm phí và thuế</p>
-                      </div>
-                      <div className="d-flex flex-column">
-                        <button>Đặt phòng</button>
-                      </div>
-                    </div>
-                  </div>
+                 
                 </div>
               </div>
               {/*--------------------- Info-hotel --------------------*/}
@@ -277,17 +153,7 @@ function RenderHotelDetail(props) {
                       <h5>Mô tả khách sạn </h5>
                     </div>
                     <div className="col-md-9">
-                      LUCKY STAR HOTEL tọa lạc tại 146 đường Nguyễn Trãi quận 1
-                      TP HCM, ngay trung tâm thành phố, cách chợ Bến Thành 5
-                      phút đi bộ, và cách sân bay chừng 30 phút chạy xe, gần các
-                      khu trung tâm mua sắm, giải trí, tài chính, ngân hàng,
-                      bệnh viện và các điểm tham quan nổi tiếng của thành phố
-                      như: Dinh Độc Lập, bảo tàng Chứng Tích Chiến Tranh, nhà
-                      thờ Đức Bà, gần khu phố Tây Bùi Viện, phố đi bộ Nguyễn
-                      Huệ, ... Khách sạn nằm ngay trung tâm quận 1, với hệ thống
-                      phòng nghỉ có lối kiến trúc hiện đại,nội thất đồ gỗ sang
-                      trọng,đạt tiêu chuẩn 1 sao do tổng cục du lịch Việt Nam
-                      xếp hạng
+                      {data.description}
                     </div>
                   </div>
                   <div className="row convient">
