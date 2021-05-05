@@ -8,29 +8,51 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
 
 RenderSearch.propTypes = {
-  handleSubmitSearch : PropTypes.func,
+  handleSubmitSearch: PropTypes.func,
 };
 
 function RenderSearch(props) {
-  const {handleSubmitSearch} = props;
+  const { handleSubmitSearch } = props;
+
   const [startDate, setStartDate] = useState(new Date());
- 
-  const { handleSubmit, register } = useForm({
-    defaultValues: {},
-  });
+
+  
   const { enqueueSnackbar } = useSnackbar();
   const handleSubmitFind = async (data) => {
-    if(handleSubmitSearch)
-    { 
-      if(typeof data.ngaynhanphong ==="undefined" || typeof data.search === "undefined" || typeof data.ngaythue === "undefined")
-      {
+    console.log(data);
+    if (handleSubmitSearch) {
+      if (
+        typeof data.ngaynhanphong === "undefined" ||
+        typeof data.search === "undefined" ||
+        typeof data.ngaythue === "undefined"
+      ) {
         enqueueSnackbar("Bộ lọc chưa hợp lệ", { variant: "error" });
-     
-      }
-      else await handleSubmitSearch(data);
+      } else await handleSubmitSearch(data);
     }
-
   };
+  //set date picker
+  const current = new Date();
+  let currentDate = "";
+  let currentMonth = "";
+  let currentYear = "";
+  if (current.getDate() < 10) {
+    currentDate = `0${current.getDate()}`;
+  } else {
+    currentDate = `${current.getDate()}`;
+  }
+  if (current.getMonth() < 10) {
+    currentMonth = `0${current.getMonth() + 1}`;
+  } else {
+    currentMonth = `${current.getDate() + 1}`;
+  }
+  if (current.getFullYear() < 10) {
+    currentYear = `0${current.getFullYear()}`;
+  } else {
+    currentYear = `${current.getFullYear()}`;
+  }
+  const currentTime = `${currentYear}-${currentMonth}-${currentDate}`;
+
+  const { handleSubmit, register } = useForm({});
   return (
     <div>
       {/*-------------------- hotel-list-search -----------------*/}
@@ -51,7 +73,7 @@ function RenderSearch(props) {
                 id="date"
                 label="Ngay nhan phong"
                 type="date"
-                defaultValue={Date.toString}
+                defaultValue={currentTime}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -69,7 +91,6 @@ function RenderSearch(props) {
             <button type="submit">Tìm kiếm</button>
           </div>
         </form>
-       
       </div>
     </div>
   );

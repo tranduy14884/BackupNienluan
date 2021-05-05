@@ -84,7 +84,7 @@ function RenderRoom(props) {
                           <span className="old-price">{formatter.format(room.oldPrice)}đ</span>
                           <span className="discount-price">-{(room.discount * 1000) / 10}%</span>
                         </p>
-                        <p>{formatter.format(room.oldPrice * room.discount)}</p>
+                        <p>{formatter.format(room.oldPrice - room.oldPrice * room.discount)}</p>
                         <p>Giá đã bao gồm phí và thuế</p>
                       </div>
                       <div className="d-flex flex-column">
