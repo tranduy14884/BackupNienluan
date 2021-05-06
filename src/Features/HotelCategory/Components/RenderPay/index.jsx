@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useRouteMatch } from "react-router";
+import { useHistory, useRouteMatch } from "react-router";
 import Header from "../../../../Components/Header";
 import Footer from "../../../../Components/Footer";
 import "./style.css";
@@ -10,6 +10,14 @@ import productApi from "../../../../api/productApi";
 import roomApi from "../../../../api/roomApj";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
+import Order from "../../../../api/orderApi";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 RenderPay.propTypes = {};
 
 function RenderPay(props) {
@@ -69,22 +77,86 @@ function RenderPay(props) {
   }
   const currentTime = `${currentYear}-${currentMonth}-${currentDate}`;
   //access data form
+  const { enqueueSnackbar } = useSnackbar();
   const [phone, setPhone] = useState();
   const handlePhoneChange = (e) => {
     setPhone(e.target.value);
   };
   //check login
-  const { enqueueSnackbar } = useSnackbar();
+
   const loggedUser = useSelector((state) => state.user.current);
   const isLogged = !!loggedUser.id;
+  const [order, setOrder] = useState({});
+  const history = useHistory();
   const handleSubmit = () => {
     if (!isLogged) {
       enqueueSnackbar("Vui lòng đăng nhập trước khi đặt phòng ", {
         variant: "warning",
       });
+    } else {
+      if (typeof phone === "undefined" || phone.toString().length != 10) {
+        enqueueSnackbar("Số điện thoại không hợp lệ", {
+          variant: "warning",
+        });
+      } else {
+        const data = {
+          customer: loggedUser.name,
+          email: loggedUser.email,
+          phone: phone,
+          hotelThumnail: product.thumnailUrl,
+          hotelLocation: product.location,
+          hotelName: product.title,
+          timeReceive: currentTime,
+          roomName: room.name,
+          roomNumber: room.number,
+          numbeNight: room.day,
+          price: (room.oldPrice - room.oldPrice * room.discount) * room.day,
+          idRoom : room.id,
+          idCustomer : loggedUser.id
+        };
+       
+        //Goi Api them vao order
+        const getApi = Order.add(data);
+        enqueueSnackbar("Đặt phòng thành công", {
+          variant: "success",
+        });
+        //redirect when booking succes
+        history.push(`/hotel/detail/${product.id}`);
+        console.log(data);
+      }
     }
-    console.log(phone);
-    // e.preventDefault();
+  };
+  //Lay order tu API dem vao thong tin dat phong
+  useEffect(()=>{
+    (async ()=>{
+      const orderApi = await Order.get(room.id);
+      // console.log('dataAPi',dataApi);
+      if(orderApi.idCustomer === loggedUser.id)
+      {
+        setOrder(orderApi);
+      }
+      // console.log(order);
+    })()
+  },[]);
+  // console.log(order);
+  //Xu lí dialog Thông tin đặt phòng
+  const [open, setOpen] = useState(false);
+  // console.log(room.id, order.idRoom);
+  const handleClickOpen = () => {
+    if(!isLogged)
+    {
+      enqueueSnackbar("Vui lòng đăng nhập để xem thông tin", {
+        variant : 'info'
+      })
+    }
+    else 
+    { 
+       setOpen(true)
+    };
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -95,7 +167,37 @@ function RenderPay(props) {
           <div className="container-fluid">
             <div className="container d-flex justify-content-between align-items-center">
               <img src={iconhome} alt="true" />
-              <p>Thông tin đặt phòng</p>
+              <p className="detailbooking" onClick={handleClickOpen}>Thông tin đặt phòng</p>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Thông tin đặt phòng"}
+                </DialogTitle>
+                <DialogContent>
+                  <table>
+                    <tr>
+                      <th>Họ tên</th>
+                      <th>Số điện thoại</th>
+                      <th>Khách sạn</th>
+                      <th>Phòng</th>
+                      <th>Số lượng</th>
+                      <th>Ngày đặt phòng</th>
+                      <th>Số đêm thuê</th>
+                      <th>Giá</th>
+                    </tr>
+                  </table>
+                  <p>{order.customer}</p>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary" >
+                    Exit
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </div>
           </div>
         </div>
@@ -119,28 +221,23 @@ function RenderPay(props) {
                   <div className="col-md-9">
                     <div className="form-group">
                       <label htmlFor="name">Họ và tên:</label>
-                      {
-                        isLogged && (
-                          <input
+                      {isLogged && (
+                        <input
                           type="text"
                           className="form-control"
                           id="name"
                           placeholder="Nhập họ tên"
                           defaultValue={loggedUser.name}
                         />
-                        )
-                      }
-                      {
-                        !isLogged && (
-                          <input
+                      )}
+                      {!isLogged && (
+                        <input
                           type="text"
                           className="form-control"
                           id="name"
                           placeholder="Nhập họ tên"
-                          
                         />
-                        )
-                      }
+                      )}
                     </div>
                   </div>
                 </div>
@@ -154,7 +251,6 @@ function RenderPay(props) {
                         id="phone"
                         placeholder="Nhập số điện thoại"
                         pattern="[0-9]{10}"
-                        required
                         onChange={handlePhoneChange}
                       />
                     </div>
@@ -177,7 +273,6 @@ function RenderPay(props) {
                           className="form-control"
                           id="emal"
                           placeholder="Nhập email"
-                          
                         />
                       )}
                     </div>
@@ -187,7 +282,7 @@ function RenderPay(props) {
                   className="d-flex flex-row-reverse"
                   style={{ width: "100%" }}
                 >
-                  <button onClick={handleSubmit}>Tiếp tục</button>
+                  <button onClick={handleSubmit}>Thanh toán</button>
                 </div>
               </div>
 

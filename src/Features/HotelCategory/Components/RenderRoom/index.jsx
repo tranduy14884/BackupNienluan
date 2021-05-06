@@ -29,7 +29,7 @@ function RenderRoom(props) {
                             <span className="icon">
                               <i className="fas fa-bed" />
                             </span>
-                            {room.number} giường
+                            {room.numberBed} giường
                           </p>
                           <p>
                             <span className="icon">
