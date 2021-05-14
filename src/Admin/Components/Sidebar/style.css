@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.wrapper-sidebar{
+    min-height: 100%;
+    width: 15%;
+    background-color:  #ff751a;
+    
+}
+.wrapper-sidebar li{
+  
+    list-style-type: none;
+    border-bottom: 1px solid wheat;
+    margin: 0 15px;
+ 
+}
+.wrapper-sidebar li:first-child{
+    padding-left: 20px;
+    
+}
+.wrapper-sidebar li a {
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+    font-size: 21px;
+    display: block;
+}
+.wrapper-sidebar span i{
+    margin-right: 10px;
+}

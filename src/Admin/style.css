@@ -1,0 +1,6 @@
+.wrapper{
+    display: flex;
+}
+.wapper-content{
+    width: 100% !important;
+}

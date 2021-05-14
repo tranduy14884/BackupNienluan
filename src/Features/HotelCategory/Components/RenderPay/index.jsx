@@ -17,6 +17,18 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from "@material-ui/icons/Close";
+import MuiDialogContent from "@material-ui/core/DialogContent";
+import MuiDialogActions from "@material-ui/core/DialogActions";
+import {
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+  withStyles,
+} from "@material-ui/core";
+import OrderList from "./components/OrderList";
 
 RenderPay.propTypes = {};
 
@@ -86,7 +98,7 @@ function RenderPay(props) {
 
   const loggedUser = useSelector((state) => state.user.current);
   const isLogged = !!loggedUser.id;
-  const [order, setOrder] = useState({});
+  const [order, setOrder] = useState([]);
   const history = useHistory();
   const handleSubmit = () => {
     if (!isLogged) {
@@ -111,10 +123,11 @@ function RenderPay(props) {
           roomNumber: room.number,
           numbeNight: room.day,
           price: (room.oldPrice - room.oldPrice * room.discount) * room.day,
-          idRoom : room.id,
-          idCustomer : loggedUser.id
+          idRoom: room.id,
+          idCustomer: loggedUser.id,
+          idProduct : product.id
         };
-       
+
         //Goi Api them vao order
         const getApi = Order.add(data);
         enqueueSnackbar("Đặt phòng thành công", {
@@ -122,43 +135,88 @@ function RenderPay(props) {
         });
         //redirect when booking succes
         history.push(`/hotel/detail/${product.id}`);
-        console.log(data);
       }
     }
   };
   //Lay order tu API dem vao thong tin dat phong
-  useEffect(()=>{
-    (async ()=>{
-      const orderApi = await Order.get(room.id);
-      // console.log('dataAPi',dataApi);
-      if(orderApi.idCustomer === loggedUser.id)
-      {
-        setOrder(orderApi);
-      }
-      // console.log(order);
-    })()
-  },[]);
+  useEffect(() => {
+    (async () => {
+      const orderApi = await Order.getAll();
+      let arrOder = [];
+      orderApi.map((item) => {
+        if (item.idCustomer === loggedUser.id) {
+          return arrOder.push(item);
+        }
+      });
+      setOrder(arrOder);
+    })();
+  }, []);
+
   // console.log(order);
   //Xu lí dialog Thông tin đặt phòng
   const [open, setOpen] = useState(false);
   // console.log(room.id, order.idRoom);
   const handleClickOpen = () => {
-    if(!isLogged)
-    {
+    if (!isLogged) {
       enqueueSnackbar("Vui lòng đăng nhập để xem thông tin", {
-        variant : 'info'
-      })
+        variant: "info",
+      });
+    } else {
+      setOpen(true);
     }
-    else 
-    { 
-       setOpen(true)
-    };
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+  //set full screen for dialog
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const styles = (theme) => ({
+    root: {
+      margin: 0,
+      padding: theme.spacing(2),
+    },
+    closeButton: {
+      position: "absolute",
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+      color: theme.palette.grey[500],
+    },
+  });
 
+  const DialogTitle = withStyles(styles)((props) => {
+    const { children, classes, onClose, ...other } = props;
+    return (
+      <MuiDialogTitle disableTypography className={classes.root} {...other}>
+        <Typography variant="h6">{children}</Typography>
+        {onClose ? (
+          <IconButton
+            aria-label="close"
+            className={classes.closeButton}
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        ) : null}
+      </MuiDialogTitle>
+    );
+  });
+
+  const DialogContent = withStyles((theme) => ({
+    root: {
+      padding: theme.spacing(2),
+    },
+  }))(MuiDialogContent);
+
+  const DialogActions = withStyles((theme) => ({
+    root: {
+      margin: 0,
+      padding: theme.spacing(1),
+    },
+  }))(MuiDialogActions);
+
+  
   return (
     <div>
       <>
@@ -167,33 +225,51 @@ function RenderPay(props) {
           <div className="container-fluid">
             <div className="container d-flex justify-content-between align-items-center">
               <img src={iconhome} alt="true" />
-              <p className="detailbooking" onClick={handleClickOpen}>Thông tin đặt phòng</p>
+              <p className="detailbooking" onClick={handleClickOpen}>
+                Thông tin đặt phòng
+              </p>
               <Dialog
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                fullScreen={fullScreen}
+                // style={{maxWidth : '800px'}}
               >
                 <DialogTitle id="alert-dialog-title">
                   {"Thông tin đặt phòng"}
                 </DialogTitle>
-                <DialogContent>
-                  <table>
-                    <tr>
-                      <th>Họ tên</th>
-                      <th>Số điện thoại</th>
-                      <th>Khách sạn</th>
-                      <th>Phòng</th>
-                      <th>Số lượng</th>
-                      <th>Ngày đặt phòng</th>
-                      <th>Số đêm thuê</th>
-                      <th>Giá</th>
-                    </tr>
+                <DialogContent dividers style={{ maxWidth: "800px" }}>
+                  <table className="dialog-table">
+                    <Typography gutterBottom>
+                      <thead>
+                        <tr>
+                          <th>Khách sạn</th>
+                          <th>Loại phòng</th>
+                          <th>Ngày đặt phòng</th>
+                          <th>Giá</th>
+                          <th>Tùy chọn</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {order.map((item) => {
+                          return (
+                            <OrderList orderList={item}/>
+                            // <tr key={item.id}>
+                            //   <td>{item.hotelName}</td>
+                            //   <td>{item.roomNumber} giường đơn</td>
+                            //   <td>{item.timeReceive}</td>
+                            //   <td>{item.price}</td>
+                            //   <td className="huy"> Hủy</td>
+                            // </tr>
+                          );
+                        })}
+                      </tbody>
+                    </Typography>
                   </table>
-                  <p>{order.customer}</p>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleClose} color="primary" >
+                  <Button onClick={handleClose} color="primary">
                     Exit
                   </Button>
                 </DialogActions>

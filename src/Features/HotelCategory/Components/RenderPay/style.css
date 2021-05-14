@@ -73,6 +73,14 @@
 .detailbooking{
     cursor: pointer;
 }
+dialog-table th,td{
+    padding: 0 5px;
+}
+.huy{
+    cursor: pointer;
+    color: #ff8533;
+    font-weight: bold;
+}
 @media (max-width:767px) {
     .pay-left{
         max-height: 700px;
