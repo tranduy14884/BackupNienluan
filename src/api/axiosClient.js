@@ -29,7 +29,7 @@ axiosClient.interceptors.response.use(function (response) {
     const { config , status , data} = error.response;
     // console.log('config : ' , config.url);
     // console.log('config : ' , data.error);
-    const URL = ['/auth/register', '/auth/login']
+    const URL = ['/auth/register', '/auth/login', '/admins/login']
     if(URL.includes(config.url)  && status === 400)
     {
       const errList = data || [];

@@ -1,6 +1,16 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../adminSlice";
 import "./style.css";
 function AdHeader(props) {
+  //check loggin admin
+  const logginAdmin = useSelector(state => state.admin.current);
+  const isLogged = !!logginAdmin.id;
+  const dispatch = useDispatch();
+  const handleLogout = ()=>{
+    const action = logout();
+    dispatch(action);
+  }
   return (
     <>
         {/* Topbar */}
@@ -249,7 +259,7 @@ function AdHeader(props) {
                 aria-expanded="false"
               >
                 <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-                  Douglas McGee
+                  {isLogged && ('Chao Khanh Duy')}
                 </span>
                 <img
                   className="img-profile rounded-circle"
@@ -261,24 +271,14 @@ function AdHeader(props) {
                 className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown"
               >
-                <a className="dropdown-item" href="#">
-                  <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
-                  Profile
-                </a>
-                <a className="dropdown-item" href="#">
-                  <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400" />
-                  Settings
-                </a>
-                <a className="dropdown-item" href="#">
-                  <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400" />
-                  Activity Log
-                </a>
+                
                 <div className="dropdown-divider" />
                 <a
                   className="dropdown-item"
                   href="#"
                   data-toggle="modal"
                   data-target="#logoutModal"
+                  onClick={handleLogout}
                 >
                   <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
                   Logout
