@@ -2,6 +2,9 @@ import { Route, Switch } from "react-router-dom";
 import Admin from "./Admin";
 import AdHome from "./Admin/Components/AdHome";
 import AdminDangNhap from "./Admin/Components/Auth/Dangnhap";
+import AdminDonHang from "./Admin/Features/DonHang";
+import AdminKhachHang from "./Admin/Features/KhachHang";
+import AdminKhachSan from "./Admin/Features/KhachSan";
 import "./App.css";
 import Home from "./Features/Home/Components";
 import Hotel from "./Features/Hotel";
@@ -16,6 +19,9 @@ function App() {
         <Route path="/" component={Home} exact></Route>
         <Route path="/Admin" component={Admin} exact></Route>
         <Route path="/Admin/dangnhap" component={AdminDangNhap} exact></Route>
+        <Route path="/Admin/khachsan" component={AdminKhachSan} exact></Route>
+        <Route path="/Admin/khachhang" component={AdminKhachHang} exact></Route>
+        <Route path="/Admin/donhang" component={AdminDonHang} exact></Route>
         <Route path="/hotel" component={Hotel} exact></Route>        
         <Route path="/hotel/:placeId" component={DetailPlace} exact/>
         <Route path="/hotel/detail/:hotelId" component={RenderHotelDetail} exact/>
