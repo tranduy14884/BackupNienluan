@@ -10,14 +10,9 @@ import { useHistory } from "react-router";
 Admin.propTypes = {};
 
 function Admin(props) {
-  //check loggin Admin
-  const loggedAdmin = useSelector((state) => state.admin.current);
-  const isLogged = !!loggedAdmin.id;
-  const history = useHistory();
-  
   return (
     <div>
-      {isLogged && (
+      
         <div className="wrapper">
           {/* SideBar */}
           <Sidebar />
@@ -37,10 +32,7 @@ function Admin(props) {
             {/* -------------------End-Footer--------------- */}
           </div>
         </div>
-      )}
-      {
-        !isLogged && ( history.push('/Admin/dangnhap'))
-      }
+      
     </div>
   );
 }

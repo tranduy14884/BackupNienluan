@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./style.css";
 import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
+import KhachSan from "./Components/KhachSan";
 ListKhachSan.propTypes = {
   listHotel: PropTypes.array,
 };
@@ -22,7 +23,7 @@ function ListKhachSan(props) {
   useEffect(()=>{
     setCurrentListHotel(listHotel.slice(firstOfIndex,lastOfIndex));
   },[listHotel.slice(firstOfIndex,lastOfIndex).length - activePage]);
-  console.log(currentListHotel);
+  
   return (
     <>
       <div>
@@ -49,18 +50,7 @@ function ListKhachSan(props) {
               {
                 currentListHotel.map((item) => {
                   return (
-                    <tr key={item.id}>
-                      <td>{item.id}</td>
-                      <td>{item.title}</td>
-                      <td>
-                        <img src={item.thumnailUrl} alt="#" />
-                      </td>
-                      <td>{item.location}</td>
-                      <td>{item.price}</td>
-                      <td>{item.discount}</td>
-                      <td>{item.available}</td>
-                      <td><span><Link to="#">Sửa</Link></span><span><Link to="#">Xóa</Link></span></td>
-                    </tr>
+                   <KhachSan khachsan={item} key={item.id}/>
                   );
                 })}
             </tbody>

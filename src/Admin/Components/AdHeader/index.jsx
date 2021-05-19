@@ -1,11 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { logout } from "../adminSlice";
 import "./style.css";
 function AdHeader(props) {
   //check loggin admin
   const logginAdmin = useSelector(state => state.admin.current);
   const isLogged = !!logginAdmin.id;
+  const history = useHistory();
+  if(!isLogged)
+  {
+    ( history.push('/Admin/dangnhap'))
+  }
   const dispatch = useDispatch();
   const handleLogout = ()=>{
     const action = logout();

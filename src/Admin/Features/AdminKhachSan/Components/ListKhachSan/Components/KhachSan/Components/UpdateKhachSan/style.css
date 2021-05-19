@@ -1,0 +1,9 @@
+.update-ks{
+    margin: 50px;
+}
+.update-ks input{
+    width: 80%;
+    margin-bottom: 20px;
+    border: 1px solid #bfbfbf;
+    padding: 10px;
+}
