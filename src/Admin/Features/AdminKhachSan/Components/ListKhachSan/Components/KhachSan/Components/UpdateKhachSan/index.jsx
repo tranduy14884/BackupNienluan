@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
@@ -38,42 +38,31 @@ function UpdateKhachSan(props) {
   //format number
   const formatNumber = new Intl.NumberFormat("es");
   //custom change img
- 
-  
-  //hanlde form
-  const [name, setName] = useState();
-  const [location, setLocation] = useState();
-  const [price, setPrice] = useState();
-  const [discount, setDiscount] = useState();
-  const [available, setAvailable] = useState();
-  const [categoryId, setCategoryId] = useState();
+
   const [thumnail, setThumnail] = useState();
   const handleChangeImg = (e) => {
     setThumnail(URL.createObjectURL(e.target.files[0]));
   };
-  const handleNameKS = (e) => {
-    setName(e.target.value);
-  };
-  const handleLocationKS = (e) => {
-    setLocation(e.target.value);
-  };
-  const handlePriceKS = (e) =>{
-    setPrice(e.target.value);
-  }
-  const handleDiscountKS = (e)=>{
-    setDiscount(e.target.value);
-  }
-  const handleAvailableKS = (e)=>{
-    setAvailable(e.target.value);
-  }
-  const handleCategoryKS = (e)=>{
-    setCategoryId(e.target.value);
-    // console.log(e.target.value);
-  }
-
- 
+  const name = createRef();
+  const price = createRef();
+  const thumnailUrl = createRef();
+  const location = createRef();
+  const discount = createRef();
+  const available = createRef();
+  const categoryId = createRef();
   const handleForm = () => {
-    console.log(categoryId);
+   
+    const dataForm = {
+      id: data.id,
+      title: name.current.value,
+      location: location.current.value,
+      price: parseInt(price.current.value),
+      discount: parseFloat(discount.current.value),
+      thumnailUrl: thumnailUrl.current.src,
+      categoryId: parseInt(categoryId.current.value),
+      available: parseInt(available.current.value),
+    };
+    console.log(dataForm);
   };
   // console.log(category);
   return (
@@ -110,7 +99,8 @@ function UpdateKhachSan(props) {
                   type="text"
                   defaultValue={data.title}
                   name="name-ks"
-                  onChange={handleNameKS}
+                  // onChange={handleNameKS}
+                  ref={name}
                 />
                 <br />
                 <label htmlFor="diadiem-ks">Địa điểm</label>
@@ -119,13 +109,20 @@ function UpdateKhachSan(props) {
                   type="text"
                   defaultValue={data.location}
                   name="diadiem-ks"
-                  onChange={handleLocationKS}
+                  ref={location}
+                  // onChange={handleLocationKS}
                 />
                 <br />
 
                 <label htmlFor="gia-ks">Giá</label>
                 <br />
-                <input type="text" defaultValue={data.price} name="gia-ks" onChange={handlePriceKS}/>
+                <input
+                  type="text"
+                  defaultValue={data.price}
+                  name="gia-ks"
+                  ref={price}
+                  // onChange={handlePriceKS}
+                />
                 <br />
                 <label htmlFor="khuyenmai-ks">Khuyến mãi</label>
                 <br />
@@ -133,7 +130,8 @@ function UpdateKhachSan(props) {
                   type="text"
                   defaultValue={data.discount}
                   name="khuyenmai-ks"
-                  onChange={handleDiscountKS}
+                  ref={discount}
+                  // onChange={handleDiscountKS}
                 />
                 <br />
                 <label htmlFor="soluong-ks">Số lượng</label>
@@ -142,21 +140,23 @@ function UpdateKhachSan(props) {
                   type="text"
                   defaultValue={data.available}
                   name="soluong-ks"
-                  onChange={handleAvailableKS}
+                  ref={available}
+                  //onChange={handleAvailableKS}
                 />
                 <br />
               </div>
               <div className="col-md-6">
                 <label htmlFor="vitri-ks">Tinh thanh &nbsp;</label>
 
-                <select name="vitri-ks"  onChange={handleCategoryKS}>
+                <select name="vitri-ks" ref={categoryId}>
                   {category.map((item) => {
-                    return <option key={item.id} value={`${item.id}`}>{item.name}</option>;
+                    return (
+                      <option key={item.id} value={`${item.id}`}>
+                        {item.name}
+                      </option>
+                    );
                   })}
-                  {/* <option  value='3'>3</option>
-                  <option  value='2'>2</option>
-                  <option  value='1'>1</option>
-                  <option  value='0'>0</option> */}
+             
                 </select>
                 <br />
                 <br />
@@ -169,6 +169,7 @@ function UpdateKhachSan(props) {
                     alt="Submit"
                     width="100"
                     height="440"
+                    ref={thumnailUrl}
                   />
                 )}
                 {typeof thumnail !== "undefined" && (
@@ -179,6 +180,7 @@ function UpdateKhachSan(props) {
                     width="100"
                     height="440"
                     accept="image/*"
+                    ref={thumnailUrl}
                   />
                 )}
 
