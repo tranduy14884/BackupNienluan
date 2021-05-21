@@ -37,7 +37,7 @@ const productApi = {
     update(data)
     {
         const url = `/products/${data.id}`;
-        return axiosClient.patch(url);
+        return axiosClient.patch(url,data);
     },
     remove(id){
         const url = `/products/${id}`;

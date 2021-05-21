@@ -1,0 +1,15 @@
+.admin-product td img{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+.admin-product td a{
+    text-decoration: none;
+    margin-right: 10px;
+}
+.delete-product{
+    color: red;
+}
+.admin-product td{
+    padding: 5px;
+}

@@ -7,3 +7,13 @@
     border: 1px solid #bfbfbf;
     padding: 10px;
 }
+.delete-product{
+    cursor: pointer;
+}
+.admin-update-navbar a{
+    text-decoration: none;
+    margin: 5px;
+}
+.admin-update-navbar{
+    margin-left: 20px;
+}

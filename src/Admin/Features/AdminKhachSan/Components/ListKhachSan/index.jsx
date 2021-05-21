@@ -26,12 +26,18 @@ function ListKhachSan(props) {
   
   return (
     <>
-      <div>
+      <div className="admin-khachsan-navbar">
+        <div>
         <Link to="/Admin">Admin</Link>
         <span>
           <i class="fas fa-arrow-right"></i>
         </span>
         <Link to="/Admin/khachsan">Danh sách khách sạn</Link>
+        </div>
+        <div>
+          <Link to="/Admin/khachsan/them" ><button>Thêm khách sạn </button></Link>
+        </div>
+
       </div>
       <div className="container">
         <div className="render-list-hotel">

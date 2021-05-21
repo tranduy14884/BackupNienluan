@@ -1,0 +1,21 @@
+button[type="submit"]{
+    background-color: #ff751a;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    width: 80%;
+    margin: auto;
+}
+button[type="submit"]:focus{
+    outline: none;
+}
+.admin-themkhachsan-navbar
+{
+    margin-left: 20px;
+}
+.admin-themkhachsan-navbar a{
+    text-decoration: none;
+    margin: 5px;
+}

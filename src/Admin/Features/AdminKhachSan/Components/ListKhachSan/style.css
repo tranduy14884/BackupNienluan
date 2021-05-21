@@ -12,3 +12,29 @@
 .render-list-hotel tr:nth-child(even){
     background-color: #f2f2f2;
 }
+.delete-product{
+    cursor: pointer;
+}
+.admin-khachsan-navbar{
+    display: flex;
+    justify-content: space-between;
+}
+.admin-khachsan-navbar div:first-child{
+    margin-left: 20px;
+}
+
+.admin-khachsan-navbar div:last-child{
+    margin-right: 20px;   
+}
+.admin-khachsan-navbar div:last-child button{
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: #ff751a;
+    font-weight: 500;
+    border: none;
+}
+.admin-khachsan-navbar a{
+    text-decoration: none;
+    margin : 0 5px;
+}

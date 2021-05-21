@@ -1,14 +1,13 @@
 import React, { createRef, useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useRouteMatch } from "react-router";
+import { useHistory, useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
-import Sidebar from "../../../../../../../../Components/Sidebar";
-import AdHeader from "../../../../../../../../Components/AdHeader";
-import AdFooter from "../../../../../../../../Components/AdFooter";
-import "./style.css";
-import productApi from "../../../../../../../../../api/productApi";
 import categoryApi from "../../../../../../../../../api/categoryApi";
-import { set } from "react-hook-form";
+import productApi from "../../../../../../../../../api/productApi";
+import AdFooter from "../../../../../../../../Components/AdFooter";
+import AdHeader from "../../../../../../../../Components/AdHeader";
+import Sidebar from "../../../../../../../../Components/Sidebar";
+import "./style.css";
+import { useSnackbar } from "notistack";
 UpdateKhachSan.propTypes = {};
 
 function UpdateKhachSan(props) {
@@ -43,6 +42,9 @@ function UpdateKhachSan(props) {
   const handleChangeImg = (e) => {
     setThumnail(URL.createObjectURL(e.target.files[0]));
   };
+  // Anoucement success
+  const {enqueueSnackbar} = useSnackbar();
+  const history = useHistory();
   const name = createRef();
   const price = createRef();
   const thumnailUrl = createRef();
@@ -63,6 +65,11 @@ function UpdateKhachSan(props) {
       available: parseInt(available.current.value),
     };
     console.log(dataForm);
+    history.push('/Admin/khachsan');
+    const sendRequest =  productApi.update(dataForm);
+    
+    enqueueSnackbar('Update success', {variant : 'success'});
+    
   };
   // console.log(category);
   return (
@@ -78,7 +85,7 @@ function UpdateKhachSan(props) {
 
           {/* --------------------Home-------------------- */}
 
-          <div>
+          <div className="admin-update-navbar">
             <Link to="/Admin">Admin</Link>
             <span>
               <i class="fas fa-arrow-right"></i>
@@ -87,7 +94,7 @@ function UpdateKhachSan(props) {
             <span>
               <i class="fas fa-arrow-right"></i>
             </span>
-            <Link to="/Admin/khachsan">Chinh Sua khách sạn</Link>
+            <Link to="#">Cập nhật khách sạn</Link>
           </div>
 
           <div className="update-ks">
