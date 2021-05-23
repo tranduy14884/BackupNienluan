@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import productApi from "../../../../../../../api/productApi";
 import { useSnackbar } from "notistack";
 import Dialog from "@material-ui/core/Dialog";
@@ -17,9 +17,13 @@ KhachSan.propTypes = {
 function KhachSan(props) {
   const { khachsan } = props;
   const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
   const handleDelete = () => {
     const requestDelete  = productApi.remove(khachsan.id);
-    enqueueSnackbar("Xoa thanh cong", { variant: "success" });
+    enqueueSnackbar("Xóa sản phẩm thành công", { variant: "success" });
+    window.location.reload();
+    //history.push('/Admin/khachsan');
+
     setOpen(false);
   };
   //custom dialog
@@ -58,7 +62,7 @@ function KhachSan(props) {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {"Are you sure you will delete this product?"}
+            {"Bạn có chắc là xóa sản phẩm này không ?"}
           </DialogTitle>
           {/* <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -68,10 +72,10 @@ function KhachSan(props) {
         </DialogContent> */}
           <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Cancel
+              Hủy bỏ
             </Button>
             <Button onClick={handleDelete} color="primary" autoFocus>
-              Confirm
+              Xác nhận
             </Button>
           </DialogActions>
         </Dialog>

@@ -19,3 +19,6 @@ button[type="submit"]:focus{
     text-decoration: none;
     margin: 5px;
 }
+.error-form-add-product{
+    color: red;
+}

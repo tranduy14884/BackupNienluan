@@ -38,3 +38,7 @@
     text-decoration: none;
     margin : 0 5px;
 }
+.render-list-hotel>.container>.pagination{
+    margin-top: 20px;
+    justify-content: center;
+}

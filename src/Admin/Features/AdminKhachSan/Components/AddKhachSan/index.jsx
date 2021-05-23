@@ -1,32 +1,29 @@
-import React, { createRef, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import categoryApi from '../../../../../api/categoryApi';
-import AdHeader from '../../../../Components/AdHeader';
-import Sidebar from '../../../../Components/Sidebar';
+import React, { createRef, useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import categoryApi from "../../../../../api/categoryApi";
+import AdHeader from "../../../../Components/AdHeader";
+import Sidebar from "../../../../Components/Sidebar";
 import { Link } from "react-router-dom";
-import AdFooter from '../../../../Components/AdFooter';
-
+import AdFooter from "../../../../Components/AdFooter";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import "./style.css";
-import { useSnackbar } from 'notistack';
-import productApi from '../../../../../api/productApi';
-function AdminThemKhachSan(props) {
-    //custom thumnailUrl
-    const [thumnail, setThumnail] = useState();
-    const handleChangeImg = (e) => {
-      setThumnail(URL.createObjectURL(e.target.files[0]));
-    };
+import { useSnackbar } from "notistack";
+import productApi from "../../../../../api/productApi";
 
-    //set data form
-    const history = useHistory();
-    const name = createRef();
-    const price = createRef();
-    const thumnailUrl = createRef();
-    const location = createRef();
-    const discount = createRef();
-    const available = createRef();
-    const categoryId = createRef();
-    //get category from api
-    const [category, setCategory] = useState([]);
+function AdminThemKhachSan(props) {
+  //custom thumnailUrl
+  const [thumnail, setThumnail] = useState();
+  const handleChangeImg = (e) => {
+    setThumnail(URL.createObjectURL(e.target.files[0]));
+  };
+
+  //set data form
+  const history = useHistory();
+
+  //get category from api
+  const [category, setCategory] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const dataApi = await categoryApi.getAll();
@@ -34,37 +31,88 @@ function AdminThemKhachSan(props) {
     };
     fetchData();
   }, []);
-  const {enqueueSnackbar} = useSnackbar();
-  const handleForm = ()=>{
-    const dataForm = {
-     
-        title: name.current.value,
-        location: location.current.value,
-        price: parseInt(price.current.value),
-        discount: parseFloat(discount.current.value),
-        thumnailUrl: thumnailUrl.current.src,
-        categoryId: parseInt(categoryId.current.value),
-        available: parseInt(available.current.value),
-        rankNumber : 0,
-        rankPoint : 0
-      };
-      
-      if(name.current.value === '' || location.current.value === '' || price.current.value==='' || discount.current.value ===''|| available.current.value === '')
-      {
-        
-        enqueueSnackbar('Data invalid!!!',{variant:'error'});
-      }
-      else{
-        const requestAdd = productApi.add(dataForm);
-        history.push('/Admin/khachsan');
-        enqueueSnackbar('Add success !!!',{variant:'success'});
+  const { enqueueSnackbar } = useSnackbar();
+  const handleForm = () => {
+    // const dataForm = {
+    //   title: name.current.value,
+    //   location: location.current.value,
+    //   price: parseInt(price.current.value),
+    //   discount: parseFloat(discount.current.value),
+    //   thumnailUrl: thumnailUrl.current.src,
+    //   categoryId: parseInt(categoryId.current.value),
+    //   available: parseInt(available.current.value),
+    //   rankNumber: 0,
+    //   rankPoint: 0,
+    // };
+    // if (
+    //   name.current.value === "" ||
+    //   location.current.value === "" ||
+    //   price.current.value === "" ||
+    //   discount.current.value === "" ||
+    //   available.current.value === ""
+    // ) {
+    //   enqueueSnackbar("Data invalid!!!", { variant: "error" });
+    // } else {
+    //   const requestAdd = productApi.add(dataForm);
+    //   history.push("/Admin/khachsan");
+    //   enqueueSnackbar("Add success !!!", { variant: "success" });
+    // }
+    //console.log(dataForm);
+  };
+  //validate form
+  const schema = yup.object().shape({
+    nameks: yup.string().required("Vui lòng nhập vào trường này"),
+    diadiemks: yup.string().required("Vui lòng nhập vào trường này"),
+    giaks: yup
+      .number()
+      .typeError("Vui lòng nhập số")
+      .integer()
+      .required("Vui lòng nhập vào trường này"),
+    khuyenmaiks: yup
+      .number()
+      .typeError("Vui lòng nhập số")
+      .required("Vui lòng nhập vào trường này"),
+    soluongks: yup
+      .number()
+      .typeError("Vui lòng nhập số")
+      .integer()
+      .required("Vui lòng nhập vào trường này"),
+   categoryId : yup.number().typeError("Vui lòng chọn 1 trong các vị trí").required("Vui lòng chọn ")
+  });
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {},
+  });
 
-      }
-      console.log(dataForm);
-  }
-    return (
-        <div>
-           <div className="wrapper">
+  const onSubmit = (data) => {
+    const dataForm = {
+      title: data.nameks,
+      location: data.diadiemks,
+      price: data.giaks,
+      discount: data.khuyenmaiks,
+      thumnailUrl: thumnail,
+      categoryId: parseInt(data.categoryId),
+      available: data.soluongks,
+      rankNumber: 0,
+      rankPoint: 0,
+    };
+    if(typeof dataForm.thumnailUrl ==='undefined')
+    {
+      enqueueSnackbar("Vui lòng thêm hình ảnh cho khách sạn!!!", { variant: "error" });
+    }
+    else{
+       const requestAdd = productApi.add(dataForm);
+      history.push("/Admin/khachsan");
+      enqueueSnackbar("Add success !!!", { variant: "success" });
+    }
+  };
+  return (
+    <div>
+      <div className="wrapper">
         {/* SideBar */}
         <Sidebar />
         {/* End - SideBar */}
@@ -88,64 +136,104 @@ function AdminThemKhachSan(props) {
           </div>
 
           <div className="update-ks">
-            <div className="row">
-              <div className="col-md-6">
-                <label htmlFor="nam-ks">Tên khách sạn</label>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="row">
+                <div className="col-md-6">
+                  <label htmlFor="nameks">Tên khách sạn</label>
+                  <br />
+                  <input {...register("nameks")} />
+                  <p className="error-form-add-product">{errors.nameks?.message}</p>
+                  <label htmlFor="diadiemks">Địa điểm</label>
+                  <br />
+                  <input {...register("diadiemks")} />
+                  <p className="error-form-add-product">{errors.diadiemks?.message}</p>
+                  <label htmlFor="giaks">Giá</label>
+                  <br />
+                  <input {...register("giaks")} />
+                  <p className="error-form-add-product">{errors.giaks?.message}</p>
+                  <label htmlFor="khuyenmaiks">Khuyến mãi</label>
+                  <br />
+                  <input {...register("khuyenmaiks")} />
+                  <p className="error-form-add-product">{errors.khuyenmaiks?.message}</p>
+                  <label htmlFor="soluongks">Số lượng</label>
+                  <br />
+                  <input {...register("soluongks")} />
+                  <p className="error-form-add-product">{errors.soluongks?.message}</p>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="vitriks">Tinh thanh &nbsp;</label>
+
+                  <select {...register("categoryId")}>
+                    {category.map((item) => {
+                      return (
+                        <option key={item.id} value={`${item.id}`}>
+                          {item.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <p className="error-form-add-product">{errors.categoryId?.message}</p>
+
+                  <label htmlFor="hinhanhks">Hình ảnh</label>
+                  <br />
+                  {typeof thumnail === "undefined" && (
+                    <input
+                      type="image"
+                      src={""}
+                      alt="Submit"
+                      width="100"
+                      height="440"
+                    />
+                  )}
+                  {typeof thumnail !== "undefined" && (
+                    <input
+                      type="image"
+                      src={thumnail}
+                      alt="Submit"
+                      width="100"
+                      height="440"
+                      accept="image/*"
+                    />
+                  )}
+                  <input
+                    type="file"
+                     onChange={handleChangeImg}
+                  
+                  />
+                
+                  <br />
+                  <button type="submit">Submit</button>
+                </div>
+              </div>
+            </form>
+
+            {/* <label htmlFor="nameks">Tên khách sạn</label>
                 <br />
-                <input
-                  type="text"
-               
-                  name="name-ks"
-                  // onChange={handleNameKS}
-                  ref={name}
-                />
+                <input type="text" name="nameks" ref={name} />
+                <p>{errors.nameks?.message}</p>
                 <br />
-                <label htmlFor="diadiem-ks">Địa điểm</label>
+                <label htmlFor="diadiemks">Địa điểm</label>
                 <br />
-                <input
-                  type="text"
-          
-                  name="diadiem-ks"
-                  ref={location}
-                  // onChange={handleLocationKS}
-                />
+                <input type="text" name="diadiemks" ref={location} />
                 <br />
 
-                <label htmlFor="gia-ks">Giá</label>
+                <label htmlFor="giaks">Giá</label>
                 <br />
-                <input
-                  type="text"
-                 
-                  name="gia-ks"
-                  ref={price}
-                  // onChange={handlePriceKS}
-                />
+                <input type="text" name="giaks" ref={price} />
                 <br />
-                <label htmlFor="khuyenmai-ks">Khuyến mãi</label>
+                <label htmlFor="khuyenmaiks">Khuyến mãi</label>
                 <br />
-                <input
-                  type="text"
-                  
-                  name="khuyenmai-ks"
-                  ref={discount}
-                  // onChange={handleDiscountKS}
-                />
+                <input type="text" name="khuyenmaiks" ref={discount} />
                 <br />
-                <label htmlFor="soluong-ks">Số lượng</label>
+                <label htmlFor="soluongks">Số lượng</label>
                 <br />
-                <input
-                  type="text"
-                  
-                  name="soluong-ks"
-                  ref={available}
-                  //onChange={handleAvailableKS}
-                />
+                <input type="text" name="soluongks" ref={available} />
                 <br />
               </div>
               <div className="col-md-6">
-                <label htmlFor="vitri-ks">Tinh thanh &nbsp;</label>
+                <label htmlFor="vitriks">Tinh thanh &nbsp;</label>
 
-                <select name="vitri-ks" ref={categoryId}>
+                <select name="vitriks" ref={categoryId}>
                   {category.map((item) => {
                     return (
                       <option key={item.id} value={`${item.id}`}>
@@ -153,16 +241,15 @@ function AdminThemKhachSan(props) {
                       </option>
                     );
                   })}
-             
                 </select>
                 <br />
                 <br />
-                <label htmlFor="hinhanh-ks">Hình ảnh</label>
+                <label htmlFor="hinhanhks">Hình ảnh</label>
                 <br />
                 {typeof thumnail === "undefined" && (
                   <input
                     type="image"
-                    src={''}
+                    src={""}
                     alt="Submit"
                     width="100"
                     height="440"
@@ -185,9 +272,12 @@ function AdminThemKhachSan(props) {
                 <br />
                 <br />
 
-                <button type="submit" onClick={handleForm} > Add</button>
-              </div>
-            </div>
+                <button type="submit">
+                  {" "}
+                  Add
+                </button> */}
+            {/* </div> */}
+            {/* </div> */}
           </div>
 
           {/* --------------------End-Home---------------- */}
@@ -199,8 +289,8 @@ function AdminThemKhachSan(props) {
           {/* -------------------End-Footer--------------- */}
         </div>
       </div>
-        </div>
-    );
+    </div>
+  );
 }
 
 export default AdminThemKhachSan;
