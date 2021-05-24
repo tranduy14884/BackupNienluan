@@ -132,7 +132,7 @@ function AdminThemKhachSan(props) {
             <span>
               <i class="fas fa-arrow-right"></i>
             </span>
-            <Link to="/Admin/khachsan">Chinh Sua khách sạn</Link>
+            <Link to="/Admin/khachsan/them">Thêm khách sạn</Link>
           </div>
 
           <div className="update-ks">

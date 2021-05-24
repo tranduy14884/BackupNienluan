@@ -10,10 +10,11 @@ ListKhachSan.propTypes = {
 
 function ListKhachSan(props) {
   const { listHotel } = props;
+  // console.log(listHotel);
+
   //set pagination
   const [activePage, setActivePage] = useState(1);
   const handlePageChange = (pageNumber) => {
-    console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
   const [hotelsPerpage, setHotelsPerPage] = useState(8);
@@ -23,7 +24,6 @@ function ListKhachSan(props) {
   useEffect(()=>{
     setCurrentListHotel(listHotel.slice(firstOfIndex,lastOfIndex));
   },[listHotel.slice(firstOfIndex,lastOfIndex).length - activePage]);
-  
   return (
     <>
       <div className="admin-khachsan-navbar">
