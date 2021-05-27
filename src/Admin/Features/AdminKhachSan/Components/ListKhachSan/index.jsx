@@ -58,7 +58,8 @@ function ListKhachSan(props) {
                   return (
                    <KhachSan khachsan={item} key={item.id}/>
                   );
-                })}
+                })
+              }
             </tbody>
           </table>
           <div className="container">

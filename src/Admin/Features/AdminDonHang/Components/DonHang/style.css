@@ -1,0 +1,29 @@
+.chuaxuli {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0 10px;
+}
+.daxuli{
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0 10px;
+}
+.chuaxuli:focus, .daxuli:focus{
+    outline: none;
+}
+.render-list-donhang tr,td,th{
+    text-align: center;
+    border: 1px solid #b3b3b3;
+}
+.render-list-donhang tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+.render-list-donhang th{
+    background-color: #ff751a;
+}

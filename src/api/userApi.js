@@ -33,10 +33,10 @@ const userApi = {
         const url = `/accounts/${id}`;
         return axiosClient.delete(url);
     },
-    updated(data)
+    update(data)
     {
-        const url = '/accounts';
-        return axiosClient.put(url,data);
+        const url = `/accounts/${data.id}`;
+        return axiosClient.patch(url,data);
     }
     
 };

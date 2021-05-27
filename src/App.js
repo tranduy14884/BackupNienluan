@@ -4,6 +4,7 @@ import AdHome from "./Admin/Components/AdHome";
 import AdminDangNhap from "./Admin/Components/Auth/Dangnhap";
 import AdminDonHang from "./Admin/Features/AdminDonHang";
 import AdminKhachHang from "./Admin/Features/AdminKhachHang";
+import UpdateKhachHang from "./Admin/Features/AdminKhachHang/ListKhachHang/UpdateKhachHang";
 import AdminKhachSan from "./Admin/Features/AdminKhachSan";
 import AdminThemKhachSan from "./Admin/Features/AdminKhachSan/Components/AddKhachSan";
 import UpdateKhachSan from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/UpdateKhachSan";
@@ -25,12 +26,12 @@ function App() {
         <Route path="/Admin/khachsan/them" component={AdminThemKhachSan} exact></Route>
         <Route path="/Admin/khachsan/update/:khachsanId" component={UpdateKhachSan} exact></Route>
         <Route path="/Admin/khachhang" component={AdminKhachHang} exact></Route>
+        <Route path="/Admin/khachhang/update/:khachhangId" component={UpdateKhachHang} exact/>
         <Route path="/Admin/donhang" component={AdminDonHang} exact></Route>
         <Route path="/hotel" component={Hotel} exact></Route>        
         <Route path="/hotel/:placeId" component={DetailPlace} exact/>
         <Route path="/hotel/detail/:hotelId" component={RenderHotelDetail} exact/>
         <Route path="/hotel/detail/pay/:roomId" component={RenderPay} exact/>
-
       </Switch>
        
 

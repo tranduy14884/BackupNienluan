@@ -1,16 +1,61 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import "./style.css";
-AdminDonHang.propTypes = {
-    
-};
+import Sidebar from "../../Components/Sidebar";
+import AdHeader from "../../Components/AdHeader";
+import AdFooter from "../../Components/AdFooter";
+import ListDonHang from "./Components/ListDonHang";
+import Order from "../../../api/orderApi";
+AdminDonHang.propTypes = {};
 
 function AdminDonHang(props) {
-    return (
-        <div>
-            <h1>Don Hang</h1>
+  //get list don hang
+  const [listDonHang, setListDonHang] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const dataApi = await Order.getAll();
+      setListDonHang(dataApi);
+    };
+    fetchData();
+  }, []);
+  //change Order stautus
+  const handleChangeStatusOrder = (data) => {
+    const newList = [...listDonHang];
+    newList.forEach(element => {
+      if(element.id === data.id)
+      {
+        element.status = data.status;
+      }
+    });
+    setListDonHang(newList);
+    const reqChangeStatusOrder = Order.update(data);
+  };
+  console.log(listDonHang);
+  return (
+    <div>
+      <div className="wrapper">
+        {/* SideBar */}
+        <Sidebar />
+        {/* End - SideBar */}
+        <div className="wapper-content">
+          {/* ---------------------Header----------------- */}
+          <AdHeader />
+          {/* ---------------------End-Header------------- */}
+
+          {/* --------------------Home-------------------- */}
+          {/* --------------------End-Home---------------- */}
+          <ListDonHang
+            listDonHang={listDonHang}
+            handleChangeStatusOrder={handleChangeStatusOrder}
+          />
+          {/* --------------------Footer------------------ */}
+          <AdFooter />
+
+          {/* -------------------End-Footer--------------- */}
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default AdminDonHang;

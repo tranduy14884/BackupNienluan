@@ -125,7 +125,8 @@ function RenderPay(props) {
           price: (room.oldPrice - room.oldPrice * room.discount) * room.day,
           idRoom: room.id,
           idCustomer: loggedUser.id,
-          idProduct : product.id
+          idProduct : product.id,
+          status : 0
         };
 
         //Goi Api them vao order

@@ -6,10 +6,13 @@ import AdHeader from "./Components/AdHeader";
 import Sidebar from "./Components/Sidebar";
 import "./style.css";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
+import AdminDonHang from "./Features/AdminDonHang";
 Admin.propTypes = {};
 
 function Admin(props) {
+  const location = useLocation();
+  console.log(location.pathname);
   return (
     <div>
       
