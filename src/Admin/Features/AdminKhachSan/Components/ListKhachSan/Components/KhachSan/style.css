@@ -13,3 +13,16 @@
 .admin-product td{
     padding: 5px;
 }
+.detail-room{
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: #ff751a;
+    font-weight: 500;
+    border: none;
+    width: 100px;
+    display: block;
+}
+.detail-room:focus{
+    outline: none;
+}

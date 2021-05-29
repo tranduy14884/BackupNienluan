@@ -25,12 +25,13 @@ function AdminDonHang(props) {
       if(element.id === data.id)
       {
         element.status = data.status;
+        //const reqChangeStatusOrder = Order.update(data);
+        
       }
     });
     setListDonHang(newList);
-    const reqChangeStatusOrder = Order.update(data);
   };
-  console.log(listDonHang);
+  
   return (
     <div>
       <div className="wrapper">

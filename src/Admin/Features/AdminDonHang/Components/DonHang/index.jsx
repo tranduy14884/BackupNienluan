@@ -10,6 +10,7 @@ import userApi from "../../../../../api/userApi";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import "./style.css";
+import Order from "../../../../../api/orderApi";
 DonHang.propTypes = {
   donhang: PropTypes.object,
   handleChangeStatus: PropTypes.func,
@@ -21,10 +22,10 @@ function DonHang(props) {
   //custom number
   const format = new Intl.NumberFormat("es");
   const handleDelete = () => {
-    // const requestDelete  =  userApi.remove(khachhang.id);
+    const requestDelete  =  Order.remove(donhang.id);
     enqueueSnackbar("Xóa đơn hàng thành công", { variant: "success" });
     window.location.reload();
-    //history.push('/Admin/khachsan');
+   // history.push('/Admin/khachsan');
 
     setOpen(false);
   };
@@ -39,12 +40,15 @@ function DonHang(props) {
     setOpen(false);
   };
   const handleStatus = async () => {
-    if (handleChangeStatus) {
+     if (handleChangeStatus) {
       const data = {
         id: donhang.id,
         status: 1,
       };
+      
       await handleChangeStatus(data);
+    const changeStatus = Order.update(data);
+
     }
   };
   return (
@@ -70,7 +74,7 @@ function DonHang(props) {
           <button className="chuaxuli" onClick={handleStatus}>Chưa xử lý</button>
         )}
         {donhang.status == 1 && (
-          <button className="daxuli" onClick={handleStatus}>Đã xử lý</button>
+          <button className="daxuli">Đã xử lý</button>
         )}
       </td>
       <td>

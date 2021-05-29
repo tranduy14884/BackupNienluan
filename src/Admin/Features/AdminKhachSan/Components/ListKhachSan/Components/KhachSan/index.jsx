@@ -20,7 +20,7 @@ function KhachSan(props) {
   const history = useHistory();
   const handleDelete = () => {
     const requestDelete  = productApi.remove(khachsan.id);
-    enqueueSnackbar("Xóa sản phẩm thành công", { variant: "success" });
+    enqueueSnackbar("Xóa khach san thành công", { variant: "success" });
     window.location.reload();
     //history.push('/Admin/khachsan');
 
@@ -36,6 +36,7 @@ function KhachSan(props) {
   const handleClose = () => {
     setOpen(false);
   };
+ 
   return (
     <tr key={khachsan.id} className="admin-product">
       <td>{khachsan.id}</td>
@@ -47,6 +48,7 @@ function KhachSan(props) {
       <td>{khachsan.price}</td>
       <td>{khachsan.discount}</td>
       <td>{khachsan.available}</td>
+      <td><Link to={`/Admin/khachsan/room/${khachsan.id}`} className="detail-room">Chi tiết</Link></td>
       <td>
         <p>
           <Link to={`/Admin/khachsan/update/${khachsan.id}`}>Sửa</Link>

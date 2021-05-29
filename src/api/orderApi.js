@@ -18,7 +18,7 @@ const Order = {
     update(data)
     {
         const url = `/orders/${data.id}`;
-        return axiosClient.patch(url);
+        return axiosClient.patch(url,data);
     },
     remove(id)
     {

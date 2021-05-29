@@ -1,13 +1,15 @@
 import { Route, Switch } from "react-router-dom";
 import Admin from "./Admin";
-import AdHome from "./Admin/Components/AdHome";
 import AdminDangNhap from "./Admin/Components/Auth/Dangnhap";
 import AdminDonHang from "./Admin/Features/AdminDonHang";
 import AdminKhachHang from "./Admin/Features/AdminKhachHang";
 import UpdateKhachHang from "./Admin/Features/AdminKhachHang/ListKhachHang/UpdateKhachHang";
 import AdminKhachSan from "./Admin/Features/AdminKhachSan";
 import AdminThemKhachSan from "./Admin/Features/AdminKhachSan/Components/AddKhachSan";
+import AddRoom from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/AddRoom";
+import AdminRoom from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/AdminRoom";
 import UpdateKhachSan from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/UpdateKhachSan";
+import UpdateRoom from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/UpdateRoom";
 import "./App.css";
 import Home from "./Features/Home/Components";
 import Hotel from "./Features/Hotel";
@@ -24,6 +26,9 @@ function App() {
         <Route path="/Admin/dangnhap" component={AdminDangNhap} exact></Route>
         <Route path="/Admin/khachsan" component={AdminKhachSan} exact></Route>
         <Route path="/Admin/khachsan/them" component={AdminThemKhachSan} exact></Route>
+        <Route path="/Admin/khachsan/room/:khachsanId" component={AdminRoom} exact></Route>
+        <Route path="/Admin/khachsan/phong/them" component={AddRoom} exact></Route>
+        <Route path="/Admin/khachsan/room/update/:roomId" component={UpdateRoom} exact></Route>
         <Route path="/Admin/khachsan/update/:khachsanId" component={UpdateKhachSan} exact></Route>
         <Route path="/Admin/khachhang" component={AdminKhachHang} exact></Route>
         <Route path="/Admin/khachhang/update/:khachhangId" component={UpdateKhachHang} exact/>

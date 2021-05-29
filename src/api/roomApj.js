@@ -21,7 +21,7 @@ const roomApi = {
     update(data)
     {
         const url = `/rooms/${data.id}`;
-        return axiosClient.patch(url);
+        return axiosClient.patch(url,data);
     },
     remove(id){
         const url = `/rooms/${id}`;

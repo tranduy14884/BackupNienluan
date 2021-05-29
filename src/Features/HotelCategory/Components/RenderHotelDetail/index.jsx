@@ -138,7 +138,7 @@ function RenderHotelDetail(props) {
                   
                     {
                       roomFilter.map(item =>{
-                        return <RenderRoom room={item}></RenderRoom>
+                        return <RenderRoom room={item} key={item.id}></RenderRoom>
                       })
                     }
                  

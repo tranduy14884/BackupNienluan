@@ -62,7 +62,7 @@ function RenderHotelList(props) {
             {
               newList.map((hotel) => {
                     return (
-                     <Hotel hotel={hotel}></Hotel>
+                     <Hotel hotel={hotel} key={hotel.id}></Hotel>
                     )
               })
             }
