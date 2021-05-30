@@ -15,8 +15,15 @@ import productApi from "../../../../../api/productApi";
 function AdminThemKhachSan(props) {
   //custom thumnailUrl
   const [thumnail, setThumnail] = useState();
+  const [image, setImage] = useState("");
   const handleChangeImg = (e) => {
-    setThumnail(URL.createObjectURL(e.target.files[0]));
+    if (e.target.files[0] && e.target.files) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        setImage(e.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
   };
 
   //set data form
@@ -77,7 +84,10 @@ function AdminThemKhachSan(props) {
       .typeError("Vui lòng nhập số")
       .integer()
       .required("Vui lòng nhập vào trường này"),
-   categoryId : yup.number().typeError("Vui lòng chọn 1 trong các vị trí").required("Vui lòng chọn ")
+    categoryId: yup
+      .number()
+      .typeError("Vui lòng chọn 1 trong các vị trí")
+      .required("Vui lòng chọn "),
   });
   const {
     register,
@@ -94,18 +104,18 @@ function AdminThemKhachSan(props) {
       location: data.diadiemks,
       price: data.giaks,
       discount: data.khuyenmaiks,
-      thumnailUrl: thumnail,
+      thumnailUrl: image,
       categoryId: parseInt(data.categoryId),
       available: data.soluongks,
       rankNumber: 0,
       rankPoint: 0,
     };
-    if(typeof dataForm.thumnailUrl ==='undefined')
-    {
-      enqueueSnackbar("Vui lòng thêm hình ảnh cho khách sạn!!!", { variant: "error" });
-    }
-    else{
-       const requestAdd = productApi.add(dataForm);
+    if (typeof dataForm.thumnailUrl === "undefined") {
+      enqueueSnackbar("Vui lòng thêm hình ảnh cho khách sạn!!!", {
+        variant: "error",
+      });
+    } else {
+      const requestAdd = productApi.add(dataForm);
       history.push("/Admin/khachsan");
       enqueueSnackbar("Add success !!!", { variant: "success" });
     }
@@ -142,23 +152,33 @@ function AdminThemKhachSan(props) {
                   <label htmlFor="nameks">Tên khách sạn</label>
                   <br />
                   <input {...register("nameks")} />
-                  <p className="error-form-add-product">{errors.nameks?.message}</p>
+                  <p className="error-form-add-product">
+                    {errors.nameks?.message}
+                  </p>
                   <label htmlFor="diadiemks">Địa điểm</label>
                   <br />
                   <input {...register("diadiemks")} />
-                  <p className="error-form-add-product">{errors.diadiemks?.message}</p>
+                  <p className="error-form-add-product">
+                    {errors.diadiemks?.message}
+                  </p>
                   <label htmlFor="giaks">Giá</label>
                   <br />
                   <input {...register("giaks")} />
-                  <p className="error-form-add-product">{errors.giaks?.message}</p>
+                  <p className="error-form-add-product">
+                    {errors.giaks?.message}
+                  </p>
                   <label htmlFor="khuyenmaiks">Khuyến mãi</label>
                   <br />
                   <input {...register("khuyenmaiks")} />
-                  <p className="error-form-add-product">{errors.khuyenmaiks?.message}</p>
+                  <p className="error-form-add-product">
+                    {errors.khuyenmaiks?.message}
+                  </p>
                   <label htmlFor="soluongks">Số lượng</label>
                   <br />
                   <input {...register("soluongks")} />
-                  <p className="error-form-add-product">{errors.soluongks?.message}</p>
+                  <p className="error-form-add-product">
+                    {errors.soluongks?.message}
+                  </p>
                 </div>
                 <div className="col-md-6">
                   <label htmlFor="vitriks">Tinh thanh &nbsp;</label>
@@ -172,35 +192,24 @@ function AdminThemKhachSan(props) {
                       );
                     })}
                   </select>
-                  <p className="error-form-add-product">{errors.categoryId?.message}</p>
+                  <p className="error-form-add-product">
+                    {errors.categoryId?.message}
+                  </p>
 
                   <label htmlFor="hinhanhks">Hình ảnh</label>
                   <br />
-                  {typeof thumnail === "undefined" && (
-                    <input
-                      type="image"
-                      src={""}
-                      alt="Submit"
-                      width="100"
-                      height="440"
-                    />
-                  )}
-                  {typeof thumnail !== "undefined" && (
-                    <input
-                      type="image"
-                      src={thumnail}
-                      alt="Submit"
-                      width="100"
-                      height="440"
-                      accept="image/*"
-                    />
-                  )}
+
                   <input
-                    type="file"
-                     onChange={handleChangeImg}
-                  
+                    type="image"
+                    src={image}
+                    alt="Submit"
+                    width="100"
+                    height="440"
+                    accept="image/*"
                   />
-                
+
+                  <input type="file" onChange={handleChangeImg} />
+
                   <br />
                   <button type="submit">Submit</button>
                 </div>

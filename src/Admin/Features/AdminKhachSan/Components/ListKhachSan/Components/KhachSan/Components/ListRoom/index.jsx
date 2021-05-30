@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import Room from "../Room";
 ListRoom.propTypes = {
   listRoom: PropTypes.array,
@@ -8,7 +8,8 @@ ListRoom.propTypes = {
 
 function ListRoom(props) {
   const { listRoom } = props;
-  // console.log(listRoom);
+  const match = useRouteMatch();
+  const {params : {khachsanId}} = match;
   return (
     <>
       <div className="admin-khachsan-navbar">
@@ -25,7 +26,7 @@ function ListRoom(props) {
 
         </div>
         <div>
-          <Link to="/Admin/khachsan/phong/them">
+          <Link to={`/Admin/khachsan/phong/them/${khachsanId}`}>
             <button>Thêm khách sạn </button>
           </Link>
         </div>

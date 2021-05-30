@@ -8,6 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Link, useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import roomApi from '../../../../../../../../../api/roomApj';
 Room.propTypes = {
     room : PropTypes.object,
 };
@@ -18,7 +19,7 @@ function Room(props) {
   const { enqueueSnackbar } = useSnackbar();
 
     const handleDelete = () => {
-        // const requestDelete  = productApi.remove(khachsan.id);
+        const requestDelete  = roomApi.remove(room.id);
         enqueueSnackbar("Xóa khach san thành công", { variant: "success" });
         window.location.reload();
         //history.push('/Admin/khachsan');

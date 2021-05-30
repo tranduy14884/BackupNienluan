@@ -25,7 +25,7 @@ function Hotel(props) {
       >
         <div className="item-left d-flex flex-row">
           <div className="item-img">
-            <img src={hotel.thumnailUrl} alt />
+            <img src={hotel.thumnailUrl} alt={hotel.title} width="200px" height="200px"/>
           </div>
           <div className="item-content">
             <h5>{hotel.title}</h5>

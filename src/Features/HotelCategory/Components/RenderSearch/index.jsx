@@ -16,7 +16,6 @@ function RenderSearch(props) {
 
   const [startDate, setStartDate] = useState(new Date());
 
-  
   const { enqueueSnackbar } = useSnackbar();
   const handleSubmitFind = async (data) => {
     console.log(data);
@@ -88,7 +87,7 @@ function RenderSearch(props) {
               />
             </div>
 
-            <button type="submit">Tìm kiếm</button>
+            <button className="btn-search" type="submit">Tìm kiếm</button>
           </div>
         </form>
       </div>

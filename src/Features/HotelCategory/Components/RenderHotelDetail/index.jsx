@@ -46,7 +46,7 @@ function RenderHotelDetail(props) {
           <div className="container">
             <div className="hotel-detail">
               {/*------------------ hotel-search ------------------*/}
-              <RenderSearch />
+              
               {/*--------------------- title ---------------------*/}
               <div className="title-detail d-flex">
                 <a href="#">Trang chủ &gt;</a>

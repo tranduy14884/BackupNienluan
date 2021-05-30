@@ -159,6 +159,7 @@ function Header(props) {
           </div>
         </div>
       </div>
+      <hr />
       <Menu
         anchorEl={anchorEl}
         keepMounted
