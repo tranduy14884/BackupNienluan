@@ -27,7 +27,7 @@ function ListRoom(props) {
         </div>
         <div>
           <Link to={`/Admin/khachsan/phong/them/${khachsanId}`}>
-            <button>Thêm khách sạn </button>
+            <button>Thêm Phòng </button>
           </Link>
         </div>
       </div>

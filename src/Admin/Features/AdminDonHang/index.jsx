@@ -6,6 +6,7 @@ import AdHeader from "../../Components/AdHeader";
 import AdFooter from "../../Components/AdFooter";
 import ListDonHang from "./Components/ListDonHang";
 import Order from "../../../api/orderApi";
+import productApi from "../../../api/productApi";
 AdminDonHang.propTypes = {};
 
 function AdminDonHang(props) {
@@ -18,20 +19,19 @@ function AdminDonHang(props) {
     };
     fetchData();
   }, []);
+  
   //change Order stautus
   const handleChangeStatusOrder = (data) => {
     const newList = [...listDonHang];
-    newList.forEach(element => {
-      if(element.id === data.id)
-      {
+    newList.forEach((element) => {
+      if (element.id === data.id) {
         element.status = data.status;
         //const reqChangeStatusOrder = Order.update(data);
-        
       }
     });
     setListDonHang(newList);
   };
-  
+
   return (
     <div>
       <div className="wrapper">

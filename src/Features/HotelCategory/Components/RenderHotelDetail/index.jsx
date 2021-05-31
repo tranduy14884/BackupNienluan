@@ -8,6 +8,7 @@ import RenderSearch from "../RenderSearch";
 import detailApi from "../../../../api/detailApi";
 import RenderRoom from "../RenderRoom";
 import roomApi from "../../../../api/roomApj";
+import productApi from "../../../../api/productApi";
 RenderHotelDetail.propTypes = {};
 
 function RenderHotelDetail(props) {
@@ -36,7 +37,15 @@ function RenderHotelDetail(props) {
   },[]);
   const roomFilter = room.filter(item => (item.productId == hotelId));
   // console.log(roomFilter);
-
+  //get hotel to check number
+  const [hotel, setHotel] = useState({});
+  useEffect(() => {
+    const getData = async ()=>{
+        const dataApi = await productApi.get(hotelId);
+        setHotel(dataApi);
+    }
+    getData();
+  },[]);
   return (
     <div>
       <>
@@ -138,7 +147,7 @@ function RenderHotelDetail(props) {
                   
                     {
                       roomFilter.map(item =>{
-                        return <RenderRoom room={item} key={item.id}></RenderRoom>
+                        return <RenderRoom room={item} key={item.id} hotel={hotel}></RenderRoom>
                       })
                     }
                  

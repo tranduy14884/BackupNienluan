@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useSnackbar } from "notistack";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import "./style.css";
 import Order from "../../../../../api/orderApi";
+import productApi from "../../../../../api/productApi";
 DonHang.propTypes = {
   donhang: PropTypes.object,
   handleChangeStatus: PropTypes.func,
@@ -39,6 +40,15 @@ function DonHang(props) {
   const handleClose = () => {
     setOpen(false);
   };
+  //get hotel to change number
+  const [numberHotel, setNumberHotel] = useState(0);
+  useEffect(() => {
+    const fetchData = async () =>{
+      const dataApi = await productApi.get(donhang.idProduct);
+      setNumberHotel(dataApi.available);
+    }
+    fetchData();
+  }, []);
   const handleStatus = async () => {
      if (handleChangeStatus) {
       const data = {
@@ -46,9 +56,13 @@ function DonHang(props) {
         status: 1,
       };
       
+      const dataHotel = {
+        id : donhang.idProduct,
+        available : numberHotel - donhang.roomNumber
+      }
       await handleChangeStatus(data);
-    const changeStatus = Order.update(data);
-
+      const changeStatus = Order.update(data);
+      const changeNumberHotel = productApi.update(dataHotel);
     }
   };
   return (

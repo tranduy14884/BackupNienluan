@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory, useRouteMatch } from "react-router";
 import Header from "../../../../Components/Header";
@@ -21,14 +21,17 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogContent from "@material-ui/core/DialogContent";
 import MuiDialogActions from "@material-ui/core/DialogActions";
+import "react-datepicker/dist/react-datepicker.css";
 import {
   IconButton,
+  TextField,
   Typography,
   useMediaQuery,
   useTheme,
   withStyles,
 } from "@material-ui/core";
 import OrderList from "./components/OrderList";
+import { useForm } from "react-hook-form";
 
 RenderPay.propTypes = {};
 
@@ -100,7 +103,7 @@ function RenderPay(props) {
   const isLogged = !!loggedUser.id;
   const [order, setOrder] = useState([]);
   const history = useHistory();
-  const handleSubmit = () => {
+  const handleSubmitPay = () => {
     if (!isLogged) {
       enqueueSnackbar("Vui lòng đăng nhập trước khi đặt phòng ", {
         variant: "warning",
@@ -125,8 +128,8 @@ function RenderPay(props) {
           price: (room.oldPrice - room.oldPrice * room.discount) * room.day,
           idRoom: room.id,
           idCustomer: loggedUser.id,
-          idProduct : product.id,
-          status : 0
+          idProduct: product.id,
+          status: 0,
         };
 
         //Goi Api them vao order
@@ -216,8 +219,30 @@ function RenderPay(props) {
       padding: theme.spacing(1),
     },
   }))(MuiDialogActions);
+  // Xử lí chỉnh sửa đơn hàng
+  const [numberNight, setNumbeNight] = useState(0);
+  const [numberRoom, setRoomNumber] = useState(0);
+  const numbersNight = useRef();
+  const numbersRoom = useRef();
+  const [openUpdate, setOpenUpdate] = useState(false);
+  // console.log(room.id, order.idRoom);
 
-  
+  const handleCloseUpdate = () => {
+    setOpenUpdate(false);
+  };
+  const handleClickOpenUpdate = () => {
+    setOpenUpdate(true);
+  };
+  const { handleSubmit, register } = useForm({});
+  const handleSubmitUpdate = (data) => {
+    if (
+      typeof data.ngaynhanphong === "undefined" ||
+      typeof data.search === "undefined" ||
+      typeof data.ngaythue === "undefined"
+    ) {
+      enqueueSnackbar("Dữ liệu chưa hợp lệ", { variant: "error" });
+    }
+  };
   return (
     <div>
       <>
@@ -254,16 +279,7 @@ function RenderPay(props) {
                       </thead>
                       <tbody>
                         {order.map((item) => {
-                          return (
-                            <OrderList orderList={item}/>
-                            // <tr key={item.id}>
-                            //   <td>{item.hotelName}</td>
-                            //   <td>{item.roomNumber} giường đơn</td>
-                            //   <td>{item.timeReceive}</td>
-                            //   <td>{item.price}</td>
-                            //   <td className="huy"> Hủy</td>
-                            // </tr>
-                          );
+                          return <OrderList orderList={item} />;
                         })}
                       </tbody>
                     </Typography>
@@ -359,7 +375,7 @@ function RenderPay(props) {
                   className="d-flex flex-row-reverse"
                   style={{ width: "100%" }}
                 >
-                  <button onClick={handleSubmit}>Thanh toán</button>
+                  <button onClick={handleSubmitPay}>Thanh toán</button>
                 </div>
               </div>
 
@@ -394,6 +410,74 @@ function RenderPay(props) {
                     <p>{room.name}</p>
                     <p>x1</p>
                   </div>
+                  <p className="detailbooking" onClick={handleClickOpenUpdate}>
+                    <button>Sửa</button>
+                  </p>
+                  <Dialog
+                    open={openUpdate}
+                    onClose={handleCloseUpdate}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {"Điều chỉnh đơn hàng"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        <form onSubmit={handleSubmit(handleSubmitUpdate)}>
+                          <div className="take-room">
+                            <p>Ngày nhận phòng</p>
+                            <TextField
+                              {...register("ngaynhanphong")}
+                              id="date"
+                              type="date"
+                              defaultValue={currentTime}
+                              InputLabelProps={{
+                                shrink: true,
+                              }}
+                              className="date-picker"
+                            />
+                          </div>
+                          <div className="number-night">
+                            <p>Số đêm</p>
+                            <div className="number-night-content">
+                              <span ><i class="fas fa-minus"></i>  &nbsp;</span>
+                              <input
+                                type="text"
+                                defaultValue={1}
+                                ref={numbersNight}
+                              />
+                              <span><i class="fas fa-plus"></i></span>
+                            </div>
+                          </div>
+                          <div className="hotel-name">
+                            <p>{room.name}</p>
+                            <div className="number-name-content">
+                            <span > <i class="fas fa-minus"></i>  &nbsp;</span>
+                              <input
+                                type="text"
+                                defaultValue={1}
+                                ref={numbersRoom}
+                              />
+                              <span><i class="fas fa-plus"></i></span>
+                            </div>
+                          </div>
+                        </form>
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleCloseUpdate} color="primary">
+                        Hủy bỏ
+                      </Button>
+                      <Button
+                        onClick={handleCloseUpdate}
+                        color="primary"
+                        autoFocus
+                      >
+                        Xác nhận
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                   <div className="hotel-price">
                     <p>Gía từ khách sạn</p>
                     <p>{formatter.format(room.oldPrice)}đ</p>

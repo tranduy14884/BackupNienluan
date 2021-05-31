@@ -14,7 +14,7 @@
     margin-top: 20px;
     max-height: 300px;
 }
-.pay-left button{
+.pay-left button,.detailbooking button{
     text-align: right;
     border: none;
     border-radius: 5px;
@@ -23,6 +23,11 @@
     color: white;
     margin-top: 10px;
 }
+.detailbooking{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
 .pay-right{
     margin-left: 20px;
     border-radius: 5px;
@@ -35,7 +40,7 @@
     width: 100%;
 }
 
-.pay-left button:focus{
+.pay-left button:focus, .detailbooking button:focus{
     outline: none;
 }
 .hotel-info{
@@ -55,6 +60,10 @@
     display: flex;
     justify-content: space-between;
 }
+.take-room{
+    border-top: 1px dashed black;
+    padding-top: 5px;
+}
 .hotel-price-discount{
     color: #00b300;
 }
@@ -73,13 +82,29 @@
 .detailbooking{
     cursor: pointer;
 }
-dialog-table th,td{
+.dialog-table th,td{
     padding: 0 5px;
 }
+
 .huy{
     cursor: pointer;
     color: #ff8533;
     font-weight: bold;
+}
+/* 
+custom dialog */
+#alert-dialog-description{
+    color: black !important;
+}
+
+.number-night-content input,.number-name-content input{
+    width: 20px !important;
+    border: none;
+    margin-top: 5px;
+    font-size: 24px;
+}
+.number-night-content span,.number-name-content span{
+    cursor: pointer;
 }
 @media (max-width:767px) {
     .pay-left{
