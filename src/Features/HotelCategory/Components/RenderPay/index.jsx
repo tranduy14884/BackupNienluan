@@ -103,45 +103,7 @@ function RenderPay(props) {
   const isLogged = !!loggedUser.id;
   const [order, setOrder] = useState([]);
   const history = useHistory();
-  const handleSubmitPay = () => {
-    if (!isLogged) {
-      enqueueSnackbar("Vui lòng đăng nhập trước khi đặt phòng ", {
-        variant: "warning",
-      });
-    } else {
-      if (typeof phone === "undefined" || phone.toString().length != 10) {
-        enqueueSnackbar("Số điện thoại không hợp lệ", {
-          variant: "warning",
-        });
-      } else {
-        const data = {
-          customer: loggedUser.name,
-          email: loggedUser.email,
-          phone: phone,
-          hotelThumnail: product.thumnailUrl,
-          hotelLocation: product.location,
-          hotelName: product.title,
-          timeReceive: currentTime,
-          roomName: room.name,
-          roomNumber: room.number,
-          numbeNight: room.day,
-          price: (room.oldPrice - room.oldPrice * room.discount) * room.day,
-          idRoom: room.id,
-          idCustomer: loggedUser.id,
-          idProduct: product.id,
-          status: 0,
-        };
-
-        //Goi Api them vao order
-        const getApi = Order.add(data);
-        enqueueSnackbar("Đặt phòng thành công", {
-          variant: "success",
-        });
-        //redirect when booking succes
-        history.push(`/hotel/detail/${product.id}`);
-      }
-    }
-  };
+ 
   //Lay order tu API dem vao thong tin dat phong
   useEffect(() => {
     (async () => {
@@ -220,13 +182,33 @@ function RenderPay(props) {
     },
   }))(MuiDialogActions);
   // Xử lí chỉnh sửa đơn hàng
-  const [numberNight, setNumbeNight] = useState(0);
-  const [numberRoom, setRoomNumber] = useState(0);
+  const [numberNight, setNumbeNight] = useState(1);
+  const [numberRoom, setNumberRoom] = useState(1);
+  const [dateBooked, setDateBooked] = useState(currentTime);
   const numbersNight = useRef();
   const numbersRoom = useRef();
+  const dateBooking = useRef();
   const [openUpdate, setOpenUpdate] = useState(false);
-  // console.log(room.id, order.idRoom);
-
+  const handleInscreNumberNight = () => {
+    setNumbeNight((x) => x + 1);
+  };
+  const handleDescreNumberNight = () => {
+    setNumbeNight((x) => {
+      if (x > 1) {
+        return x - 1;
+      } else return 1;
+    });
+  };
+  const handleInscreNumberRoom = () => {
+    setNumberRoom((x) => x + 1);
+  };
+  const handleDescreNumberRoom = () => {
+    setNumberRoom((x) => {
+      if (x > 1) {
+        return x - 1;
+      } else return 1;
+    });
+  };
   const handleCloseUpdate = () => {
     setOpenUpdate(false);
   };
@@ -234,13 +216,55 @@ function RenderPay(props) {
     setOpenUpdate(true);
   };
   const { handleSubmit, register } = useForm({});
-  const handleSubmitUpdate = (data) => {
-    if (
-      typeof data.ngaynhanphong === "undefined" ||
-      typeof data.search === "undefined" ||
-      typeof data.ngaythue === "undefined"
-    ) {
-      enqueueSnackbar("Dữ liệu chưa hợp lệ", { variant: "error" });
+  const handleSubmitUpdate = () => {
+    if (Date.parse(dateBooking.current.value) < Date.parse(currentTime)) {
+      enqueueSnackbar("Ngày nhận phòng không hợp lệ !!!", { variant: "error" });
+    } else {
+      setNumbeNight(numbersNight.current.value);
+      setNumberRoom(numbersRoom.current.value);
+      setDateBooked(dateBooking.current.value);
+    }
+
+    handleCloseUpdate();
+  };
+  //access pay
+  const handleSubmitPay = () => {
+    if (!isLogged) {
+      enqueueSnackbar("Vui lòng đăng nhập trước khi đặt phòng ", {
+        variant: "warning",
+      });
+    } else {
+      if (typeof phone === "undefined" || phone.toString().length != 10) {
+        enqueueSnackbar("Số điện thoại không hợp lệ", {
+          variant: "warning",
+        });
+      } else {
+        const data = {
+          customer: loggedUser.name,
+          email: loggedUser.email,
+          phone: phone,
+          hotelThumnail: product.thumnailUrl,
+          hotelLocation: product.location,
+          hotelName: product.title,
+          timeReceive: dateBooked,
+          roomName: room.name,
+          roomNumber: numberRoom,
+          numbeNight: numberNight,
+          price: (room.oldPrice - room.oldPrice * room.discount) * numberRoom * numberNight,
+          idRoom: room.id,
+          idCustomer: loggedUser.id,
+          idProduct: product.id,
+          status: 0,
+        };
+
+        //Goi Api them vao order
+        const getApi = Order.add(data);
+        enqueueSnackbar("Đặt phòng thành công", {
+          variant: "success",
+        });
+        //redirect when booking succes
+        history.push(`/hotel/detail/${product.id}`);
+      }
     }
   };
   return (
@@ -279,7 +303,7 @@ function RenderPay(props) {
                       </thead>
                       <tbody>
                         {order.map((item) => {
-                          return <OrderList orderList={item} />;
+                          return <OrderList orderList={item} key={item.id} />;
                         })}
                       </tbody>
                     </Typography>
@@ -400,15 +424,15 @@ function RenderPay(props) {
                   </p>
                   <div className="take-room">
                     <p>Ngày nhận phòng</p>
-                    <p>{currentTime}</p>
+                    <p>{dateBooked}</p>
                   </div>
                   <div className="number-night">
                     <p>Số đêm</p>
-                    <p>{room.day} đêm</p>
+                    <p>{numberNight} đêm</p>
                   </div>
                   <div className="hotel-name">
                     <p>{room.name}</p>
-                    <p>x1</p>
+                    <p>x {numberRoom}</p>
                   </div>
                   <p className="detailbooking" onClick={handleClickOpenUpdate}>
                     <button>Sửa</button>
@@ -427,53 +451,52 @@ function RenderPay(props) {
                         <form onSubmit={handleSubmit(handleSubmitUpdate)}>
                           <div className="take-room">
                             <p>Ngày nhận phòng</p>
-                            <TextField
-                              {...register("ngaynhanphong")}
-                              id="date"
+                            <input
                               type="date"
+                              id="date"
                               defaultValue={currentTime}
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
                               className="date-picker"
+                              ref={dateBooking}
                             />
                           </div>
                           <div className="number-night">
                             <p>Số đêm</p>
                             <div className="number-night-content">
-                              <span ><i class="fas fa-minus"></i>  &nbsp;</span>
+                              <span onClick={handleDescreNumberNight}>
+                                <i class="fas fa-minus"></i> &nbsp; &nbsp;
+                              </span>
                               <input
                                 type="text"
-                                defaultValue={1}
+                                defaultValue={numberNight}
                                 ref={numbersNight}
                               />
-                              <span><i class="fas fa-plus"></i></span>
+                              <span onClick={handleInscreNumberNight}>
+                                <i class="fas fa-plus"></i>
+                              </span>
                             </div>
                           </div>
                           <div className="hotel-name">
                             <p>{room.name}</p>
                             <div className="number-name-content">
-                            <span > <i class="fas fa-minus"></i>  &nbsp;</span>
+                              <span onClick={handleDescreNumberRoom}>
+                                {" "}
+                                <i class="fas fa-minus"></i> &nbsp; &nbsp;
+                              </span>
                               <input
                                 type="text"
-                                defaultValue={1}
+                                defaultValue={numberRoom}
                                 ref={numbersRoom}
                               />
-                              <span><i class="fas fa-plus"></i></span>
+                              <span onClick={handleInscreNumberRoom}>
+                                <i class="fas fa-plus"></i>
+                              </span>
                             </div>
                           </div>
                         </form>
                       </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                      <Button onClick={handleCloseUpdate} color="primary">
-                        Hủy bỏ
-                      </Button>
-                      <Button
-                        onClick={handleCloseUpdate}
-                        color="primary"
-                        autoFocus
-                      >
+                      <Button onClick={handleSubmitUpdate} color="primary">
                         Xác nhận
                       </Button>
                     </DialogActions>
@@ -491,7 +514,7 @@ function RenderPay(props) {
                   <p>Tổng cộng</p>
                   <p>
                     {formatter.format(
-                      room.oldPrice - room.oldPrice * room.discount
+                      (room.oldPrice - room.oldPrice * room.discount)*numberRoom*numberNight
                     )}{" "}
                     đ
                   </p>
