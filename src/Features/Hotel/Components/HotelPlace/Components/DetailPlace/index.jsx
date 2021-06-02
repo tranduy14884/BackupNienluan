@@ -32,18 +32,22 @@ function DetailPlace(props) {
 
   //get list hotel list from api
   const [listHotel, setListHotel] = useState([]);
+  const [data, setData] = useState([]);
   useEffect(() => {
     (async () => {
       try {
-        const data = await productApi.getAll();
-        setListHotel(data);
+        const dataApi = await productApi.getAll();
+        // setListHotel(dataApi);
+        //check Id listHotel
+        const dataFilter = dataApi.filter((item) => item.categoryId == placeId);
+        setData(dataFilter);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
-  //check Id listHotel
-  const data = listHotel.filter((item) => item.categoryId == placeId);
+  console.log(data);
+  
   //set state active page
   const [activePage, setActivePage] = useState(1);
   const [hotelsPerPage, setHotelsPerPage] = useState(6);
@@ -103,7 +107,7 @@ function DetailPlace(props) {
       setCurrentHotel(filterSearch);
     }
   };
-  
+  // console.log(currentHotel);
   return (
     <div>
       <Header />

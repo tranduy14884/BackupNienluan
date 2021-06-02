@@ -32,7 +32,7 @@ function App() {
         <Route path="/Admin/khachsan/room/:khachsanId" component={AdminRoom} exact></Route>
         <Route path="/Admin/khachsan/chitietkhachsan/:khachsanId" component={AdminDetail} exact></Route>
         <Route path="/Admin/khachsan/chitietkhachsan/sua/:detailId" component={UpdateDetail} exact></Route>
-        <Route path="/Admin/khachsan/chitietkhachsan/them/:detailId" component={AddDetail} exact></Route>
+        <Route path="/Admin/khachsan/chitietkhachsan/them/:khachsanId" component={AddDetail} exact></Route>
         <Route path="/Admin/khachsan/phong/them/:khachsanId" component={AddRoom} exact></Route>
         <Route path="/Admin/khachsan/room/update/:roomId" component={UpdateRoom} exact></Route>
         <Route path="/Admin/khachsan/update/:khachsanId" component={UpdateKhachSan} exact></Route>

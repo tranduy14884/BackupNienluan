@@ -84,6 +84,10 @@
 .room-item-body>div>button:focus{
     outline: none;
 }
+
+.hotel-detail-header>div>p {
+    margin-bottom: 10px;
+}
 @media (max-width:978px) {
     .room-item-body{
         flex-direction: column !important;

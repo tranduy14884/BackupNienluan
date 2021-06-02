@@ -1,19 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import { Link, useRouteMatch } from "react-router-dom";
-import Detail from '../Detail';
+import Detail from "../Detail";
 
 ListDetail.propTypes = {
-    
+  listDetail: PropTypes.array,
 };
 
 function ListDetail(props) {
-    const { listDetail } = props;
-    const match = useRouteMatch();
-    const {params : {khachsanId}} = match;
-    console.log(listDetail);
-    return (
-        <>
+  const { listDetail } = props;
+  const match = useRouteMatch();
+  const {
+    params: { khachsanId },
+  } = match;
+  console.log(listDetail);
+  return (
+    <>
       <div className="admin-khachsan-navbar">
         <div>
           <Link to="/Admin">Admin</Link>
@@ -25,13 +27,14 @@ function ListDetail(props) {
             <i class="fas fa-arrow-right"></i>
           </span>
           <Link to="#">Chi tiết khách sạn</Link>
-         
         </div>
-        <div>
-          <Link to={`/Admin/khachsan/chitietkhachsan/them/${khachsanId}`}>
-            <button>Thêm chi tiết </button>
-          </Link>
-        </div>
+        {listDetail.length == 0 && (
+          <div>
+            <Link to={`/Admin/khachsan/chitietkhachsan/them/${khachsanId}`}>
+              <button>Thêm chi tiết </button>
+            </Link>
+          </div>
+        )}
       </div>
       <div className="container-fluid">
         <div className="render-list-hotel">
@@ -51,19 +54,15 @@ function ListDetail(props) {
               <th>Tùy chọn</th>
             </thead>
             <tbody>
-              {
-                  listDetail.map((item) => {
-                    return (
-                     <Detail detail={item} key={item.id}/>
-                    );
-                  })
-                }
+              {listDetail.map((item) => {
+                return <Detail detail={item} key={item.id} />;
+              })}
             </tbody>
           </table>
         </div>
       </div>
     </>
-    );
+  );
 }
 
 export default ListDetail;

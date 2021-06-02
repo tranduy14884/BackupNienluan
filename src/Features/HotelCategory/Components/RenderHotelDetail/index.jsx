@@ -17,15 +17,20 @@ function RenderHotelDetail(props) {
     params: { hotelId },
   } = match;
   //get detail from Api
-  const [data,setData] = useState({});
+  const [data,setData] = useState([]);
   useEffect(() => {
     const getData = async ()=>{
-        const dataDetailApi = await detailApi.get(hotelId);
-        setData(dataDetailApi);
-        
+        // const dataDetailApi = await detailApi.get(hotelId);
+        const dataApi = await detailApi.getAll();
+        const data = dataApi.filter(item =>{
+            return item.productID == hotelId;
+        });
+        setData(data);
     }
     getData();
   },[hotelId]);
+
+  console.log(data);
   //get rooms from Api
   const [ room,setRoom ] = useState([]);
   useEffect(() => {
@@ -59,12 +64,26 @@ function RenderHotelDetail(props) {
               {/*--------------------- title ---------------------*/}
               <div className="title-detail d-flex">
                 <a href="#">Trang chủ &gt;</a>
-                <p>{data.name}</p>
+                {
+                  data.map(item =>{
+                    return (
+                      <p>{item.name}</p>
+                    )
+                  })
+                }
               </div>
               {/*------------------ hotel-detail-header ----------------*/}
               <div className="hotel-detail-header">
                 <div className="d-flex align-items-end">
-                  <h2>{data.name}</h2>
+                {
+                  data.map(item =>{
+                    return (
+                      <h2>{item.name}</h2>
+                    )
+                  })
+                }
+                  
+
                   <p>
                     <i className="fas fa-star" />
                     <i className="fas fa-star" />
@@ -76,69 +95,84 @@ function RenderHotelDetail(props) {
                   <span style={{ marginRight: 10 }}>
                     <i className="fas fa-map-marker-alt" />
                   </span>
-                  {data.location}
+                  {
+                  data.map(item =>{
+                    return (
+                      <>{item.location}</>
+
+                    )
+                  })
+                }
                 </p>
                 <div className="img-header">
-                  <div className="row">
-                    <div className="col-md-6 col-sm-12">
-                      <div className="img-col">
-                        <img
-                          src={data.thumnailUrl1}
-                          alt={data.thumnailUrl1}
-                        />
+                 {
+                   data.map(item => {
+                     return (
+                       <>
+                      <div className="row">
+                      <div className="col-md-6 col-sm-12">
+                        <div className="img-col">
+                          <img
+                            src={item.thumnailUrl1}
+                            alt={item.thumnailUrl1}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-3 col-sm-12">
+                        <div className="img-col">
+                          <img
+                            src={item.thumnailUrl2}
+                            alt={item.thumnailUrl1}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-3 col-sm-12">
+                        <div className="img-col">
+                          <img
+                            src={item.thumnailUrl3}
+                            alt={item.thumnailUrl3}
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div className="col-md-3 col-sm-12">
-                      <div className="img-col">
-                        <img
-                          src={data.thumnailUrl2}
-                          alt={data.thumnailUrl1}
-                        />
+                    <div className="row">
+                      <div className="col-md-3 col-sm-6">
+                        <div className="img-col">
+                          <img
+                            src={item.thumnailUrl4}
+                            alt={item.thumnailUrl4}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-3 col-sm-6">
+                        <div className="img-col">
+                          <img
+                            src={item.thumnailUrl5}
+                            alt={item.thumnailUrl5}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-3 col-sm-6">
+                        <div className="img-col">
+                          <img
+                            src={item.thumnailUrl6}
+                            alt={item.thumnailUrl6}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-3 col-sm-6">
+                        <div className="img-col">
+                          <img
+                            src={item.thumnailUrl7}
+                            alt={item.thumnailUrl7}
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div className="col-md-3 col-sm-12">
-                      <div className="img-col">
-                        <img
-                          src={data.thumnailUrl3}
-                          alt={data.thumnailUrl3}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-3 col-sm-6">
-                      <div className="img-col">
-                        <img
-                          src={data.thumnailUrl4}
-                          alt={data.thumnailUrl4}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-3 col-sm-6">
-                      <div className="img-col">
-                        <img
-                          src={data.thumnailUrl5}
-                          alt={data.thumnailUrl5}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-3 col-sm-6">
-                      <div className="img-col">
-                        <img
-                          src={data.thumnailUrl6}
-                          alt={data.thumnailUrl6}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-3 col-sm-6">
-                      <div className="img-col">
-                        <img
-                          src={data.thumnailUrl7}
-                          alt={data.thumnailUrl7}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                    </>
+                     )
+                   })
+                 }
                 </div>
               </div>
               {/*------------------ hotel-detail-body -------------------*/}
@@ -156,13 +190,28 @@ function RenderHotelDetail(props) {
               {/*--------------------- Info-hotel --------------------*/}
               <div className="nesscessary-info">
                 <div className="container">
-                  <h3>Thông tin về Lucky Star Hotel 146 Nguyen Trai</h3>
+                {
+                  data.map(item =>{
+                    return (
+                      <h3>Thông tin về {item.name}</h3>
+
+                    )
+                  })
+                }
                   <div className="row discript">
                     <div className="col-md-3">
                       <h5>Mô tả khách sạn </h5>
                     </div>
                     <div className="col-md-9">
-                      {data.description}
+                      
+                    {
+                  data.map(item =>{
+                    return (
+                      <p>{item.description}</p>
+
+                    )
+                  })
+                }
                     </div>
                   </div>
                   <div className="row convient">

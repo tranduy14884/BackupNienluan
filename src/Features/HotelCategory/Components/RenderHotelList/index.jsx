@@ -14,7 +14,7 @@ RenderHotelList.defaultProps = {
 };
 function RenderHotelList(props) {
   const { HotelList ,name, number } = props;
- 
+//  console.log(HotelList);
   //filter follow price
   
   const [newList,setNewList] = useState(HotelList);

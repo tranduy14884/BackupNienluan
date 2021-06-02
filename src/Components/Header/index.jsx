@@ -61,7 +61,10 @@ function Header(props) {
         <div className="container-fluid">
           <div className="flex-container header-1">
             <div className="icon-home">
-              <img src={iconhome} alt="icon-home" />
+              <a href="/">
+                <img src={iconhome} alt="icon-home" />
+
+              </a>
             </div>
             <ul className="info-home">
               <li>

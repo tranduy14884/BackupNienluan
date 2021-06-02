@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 // import "./style.css";
 import { useSnackbar } from "notistack";
+import Detail from "../Detail";
+import detailApi from "../../../../../../../../../api/detailApi";
 AddDetail.propTypes = {
     
 };
@@ -130,42 +132,41 @@ function AddDetail(props) {
   const name = createRef();
   const location = createRef();
   const description = createRef();
-  const thumnailUrl1 = createRef();
-  const thumnailUrl2 = createRef();
-  const thumnailUrl3 = createRef();
-  const thumnailUrl4 = createRef();
-  const thumnailUrl5 = createRef();
-  const thumnailUrl6 = createRef();
-  const thumnailUrl7 = createRef();
+
+  // console.log(khachsanId);
   const onSubmit = (data) => {
       try {
         const dataForm = {
-       
+            productID : khachsanId,
             name : data.nameks,
             location : data.vitriks,
             description : data.motaks,
-            thumnailUrl1 : thumnailUrl1.current.src,
-            // thumnailUrl2 : thumnailUrl2.current.src,
-            // thumnailUrl3 : thumnailUrl3.current.src,
-            // thumnailUrl4 : thumnailUrl4.current.src,
-            // thumnailUrl5 : thumnailUrl5.current.src,
-            // thumnailUrl6 : thumnailUrl6.current.src,
-            // thumnailUrl7 : thumnailUrl7.current.src,
+            thumnailUrl1 : image1,
+            thumnailUrl2 : image2,
+            thumnailUrl3 : image3,
+            thumnailUrl4 : image4,
+            thumnailUrl5 : image5,
+            thumnailUrl6 : image6,
+            thumnailUrl7 : image7,
+            
           };
-          console.log(dataForm);
+          // console.log(dataForm);
+          if (dataForm.thumnailUrl1 === "" || dataForm.thumnailUrl2 === "" || dataForm.thumnailUrl3 === "" ||
+          dataForm.thumnailUrl4 === "" || dataForm.thumnailUrl6 === "" || dataForm.thumnailUrl7 === "" || 
+          dataForm.thumnailUrl5 === "") {
+            enqueueSnackbar("Vui lòng thêm đầy đủ hình ảnh!!!", {
+              variant: "error",
+            });
+          } else {
+              const requestAdd = detailApi.add(dataForm);
+              history.push(`/Admin/khachsan/chitietkhachsan/${khachsanId}`);
+            enqueueSnackbar("Add success !!!", { variant: "success" });
+          }
       } catch (error) {
           console.log(error);
       }
    
-    // if (typeof dataForm.thumnailUrl === "undefined") {
-    //   enqueueSnackbar("Vui lòng thêm hình ảnh cho phòng !!!", {
-    //     variant: "error",
-    //   });
-    // } else {
-    //      const requestAdd = roomApi.add(dataForm);
-    //     history.push(`/Admin/khachsan/room/${khachsanId}`);
-    //   enqueueSnackbar("Add success !!!", { variant: "success" });
-    // }
+    
   };
     return (
         <div>
@@ -232,7 +233,7 @@ function AddDetail(props) {
                         width="120"
                         height="120"
                         accept="image/*"
-                        ref={thumnailUrl1}
+                     
                       />
                   
                     <input type="file" onChange={handleChangeImg1} />
@@ -252,7 +253,7 @@ function AddDetail(props) {
                         width="120"
                         height="120"
                         accept="image/*"
-                        ref={thumnailUrl2}
+                      
                       />
                     
                     <input type="file" onChange={handleChangeImg2} />
@@ -272,7 +273,7 @@ function AddDetail(props) {
                         width="120"
                         height="120"
                         accept="image/*"
-                        ref={thumnailUrl3}
+                       
                       />
                    
                     <input type="file" onChange={handleChangeImg3} />
@@ -294,7 +295,7 @@ function AddDetail(props) {
                         width="120"
                         height="120"
                         accept="image/*"
-                        ref={thumnailUrl4}
+                        
                       />
                     
                     <input type="file" onChange={handleChangeImg4} />
@@ -314,7 +315,7 @@ function AddDetail(props) {
                         width="120"
                         height="120"
                         accept="image/*"
-                        ref={thumnailUrl5}
+                      
                       />
                     
                     <input type="file" onChange={handleChangeImg5} />
@@ -334,7 +335,7 @@ function AddDetail(props) {
                         width="120"
                         height="120"
                         accept="image/*"
-                        ref={thumnailUrl6}
+                      
                       />
                     
                     <input type="file" onChange={handleChangeImg6} />
@@ -356,7 +357,7 @@ function AddDetail(props) {
                         width="120"
                         height="120"
                         accept="image/*"
-                        ref={thumnailUrl7}
+                        
                       />
                     
                     <input type="file" onChange={handleChangeImg7} />
