@@ -48,7 +48,8 @@ function KhachSan(props) {
       <td>{khachsan.price}</td>
       <td>{khachsan.discount}</td>
       <td>{khachsan.available}</td>
-      <td><Link to={`/Admin/khachsan/room/${khachsan.id}`} className="detail-room">Chi tiết</Link></td>
+      <td><Link to={`/Admin/khachsan/room/${khachsan.id}`} className="detail-room">Xem</Link></td>
+      <td><Link to={`/Admin/khachsan/chitietkhachsan/${khachsan.id}`} className="detail-room">Xem</Link></td>
       <td>
         <p>
           <Link to={`/Admin/khachsan/update/${khachsan.id}`}>Sửa</Link>

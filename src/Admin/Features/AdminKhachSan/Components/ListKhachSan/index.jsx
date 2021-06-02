@@ -51,6 +51,7 @@ function ListKhachSan(props) {
               <th>Khuyến mãi</th>
               <th>Số phòng</th>
               <th>Phòng</th>
+              <th>Chi tiết</th>
               <th>Tùy chọn</th>
             </thead>
             <tbody>

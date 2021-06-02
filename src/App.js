@@ -7,7 +7,9 @@ import UpdateKhachHang from "./Admin/Features/AdminKhachHang/ListKhachHang/Updat
 import AdminKhachSan from "./Admin/Features/AdminKhachSan";
 import AdminThemKhachSan from "./Admin/Features/AdminKhachSan/Components/AddKhachSan";
 import AddRoom from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/AddRoom";
+import AdminDetail from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/AdminDetail";
 import AdminRoom from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/AdminRoom";
+import UpdateDetail from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/UpdateDetail";
 import UpdateKhachSan from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/UpdateKhachSan";
 import UpdateRoom from "./Admin/Features/AdminKhachSan/Components/ListKhachSan/Components/KhachSan/Components/UpdateRoom";
 import "./App.css";
@@ -27,6 +29,8 @@ function App() {
         <Route path="/Admin/khachsan" component={AdminKhachSan} exact></Route>
         <Route path="/Admin/khachsan/them" component={AdminThemKhachSan} exact></Route>
         <Route path="/Admin/khachsan/room/:khachsanId" component={AdminRoom} exact></Route>
+        <Route path="/Admin/khachsan/chitietkhachsan/:khachsanId" component={AdminDetail} exact></Route>
+        <Route path="/Admin/khachsan/chitietkhachsan/sua/:detailId" component={UpdateDetail} exact></Route>
         <Route path="/Admin/khachsan/phong/them/:khachsanId" component={AddRoom} exact></Route>
         <Route path="/Admin/khachsan/room/update/:roomId" component={UpdateRoom} exact></Route>
         <Route path="/Admin/khachsan/update/:khachsanId" component={UpdateKhachSan} exact></Route>
