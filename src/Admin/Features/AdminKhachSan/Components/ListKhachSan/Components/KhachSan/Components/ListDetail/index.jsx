@@ -28,7 +28,7 @@ function ListDetail(props) {
          
         </div>
         <div>
-          <Link to={`/Admin/khachsan/phong/them/${khachsanId}`}>
+          <Link to={`/Admin/khachsan/chitietkhachsan/them/${khachsanId}`}>
             <button>Thêm chi tiết </button>
           </Link>
         </div>

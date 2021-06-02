@@ -22,11 +22,21 @@ function UpdateRoom(props) {
   }, []);
   //custom change img
 
-  const [thumnail, setThumnail] = useState();
-  const handleChangeImg = (e) => {
-    setThumnail(URL.createObjectURL(e.target.files[0]));
-  };
+  // const [thumnail, setThumnail] = useState();
+  // const handleChangeImg = (e) => {
+  //   setThumnail(URL.createObjectURL(e.target.files[0]));
+  // };
 
+  const [image, setImage] = useState("");
+  const handleChangeImg = (e) => {
+    if (e.target.files[0] && e.target.files) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        setImage(e.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
   const math = useRouteMatch();
   const {
     params: { roomId },
@@ -125,7 +135,7 @@ function UpdateRoom(props) {
                 <br />
                 <label htmlFor="hinhanh-ks">Hình ảnh</label>
                 <br />
-                {typeof thumnail === "undefined" && (
+                {image === "" && (
                   <input
                     type="image"
                     src={data.thumnailUrl}
@@ -135,10 +145,10 @@ function UpdateRoom(props) {
                     ref={thumnailUrl}
                   />
                 )}
-                {typeof thumnail !== "undefined" && (
+                {image !== "" && (
                   <input
                     type="image"
-                    src={thumnail}
+                    src={image}
                     alt="Submit"
                     width="100"
                     height="440"

@@ -38,9 +38,19 @@ function UpdateKhachSan(props) {
   const formatNumber = new Intl.NumberFormat("es");
   //custom change img
 
-  const [thumnail, setThumnail] = useState();
+  // const [thumnail, setThumnail] = useState();
+  // const handleChangeImg = (e) => {
+  //   setThumnail(URL.createObjectURL(e.target.files[0]));
+  // };
+  const [image, setImage] = useState("");
   const handleChangeImg = (e) => {
-    setThumnail(URL.createObjectURL(e.target.files[0]));
+    if (e.target.files[0] && e.target.files) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        setImage(e.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
   };
   // Anoucement success
   const {enqueueSnackbar} = useSnackbar();
@@ -169,20 +179,21 @@ function UpdateKhachSan(props) {
                 <br />
                 <label htmlFor="hinhanh-ks">Hình ảnh</label>
                 <br />
-                {typeof thumnail === "undefined" && (
+                {image === "" && (
                   <input
                     type="image"
                     src={data.thumnailUrl}
                     alt="Submit"
                     width="100"
                     height="440"
+                    accept="image/*"
                     ref={thumnailUrl}
                   />
                 )}
-                {typeof thumnail !== "undefined" && (
+                {image !== "" && (
                   <input
                     type="image"
-                    src={thumnail}
+                    src={image}
                     alt="Submit"
                     width="100"
                     height="440"
